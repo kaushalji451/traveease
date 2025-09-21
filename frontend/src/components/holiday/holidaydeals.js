@@ -51,7 +51,7 @@ const Holidaydeals = () => {
         {/* Header */}
         <div className="mb-10 max-w-3xl">
           <h2 className="text-3xl font-extrabold text-gray-900">
-            Deals You Can't Miss
+            Deals You Can&apos;t Miss
           </h2>
           <p className="mt-2 text-gray-600">
             Travel beyond boundaries with incredible savings

@@ -1,69 +1,69 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-   
-  // Features Section
-  const features = [
-    {
-      title: "Easy Booking",
-      desc: "We offer easy and convenient flight bookings with attractive offers.",
-      icon: "📅",
-    },
-    {
-      title: "Lowest Price",
-      desc: "We ensure low rates on hotel reservation, holiday packages and on flight tickets.",
-      icon: "💸",
-    },
-    {
-      title: "Instant Refund",
-      desc: "Get instant refunds effortlessly on your travel bookings with us.",
-      icon: "💳",
-    },
-    {
-      title: "24/7 Support",
-      desc: "Get assistance 24/7 on any kind of travel related query. We are happy to assist you.",
-      icon: "📞",
-    },
-    {
-      title: "Exciting Deals",
-      desc: "Enjoy exciting deals on flights, hotels, buses, car rental and tour packages.",
-      icon: "🔥",
-    },
-  ];
 
-  // Reviews Section (Carousel)
-  const reviews = [
-    {
-      name: "Ravi",
-      date: "September 11",
-      title: "The most amazing prices",
-      desc: "The most amazing prices on flight tickets, has been my go-to website for all",
-    },
-    {
-      name: "Jagadeesh",
-      date: "September 10",
-      title: "Very Good platform",
-      desc: "Very Good platform for ticket booking",
-    },
-    {
-      name: "KartikChan",
-      date: "September 10",
-      title: "Very nice",
-      desc: "Very good dealings",
-    },
-    {
-      name: "Customer",
-      date: "September 8",
-      title: "My query was solved",
-      desc: "My query was solved within very short period. Thank you easemytrip...",
-    },
-    {
-      name: "Susan M",
-      date: "September 7",
-      title: "Easy to book",
-      desc: "Easy to book",
-    },
-  ];
+// Features Section
+const features = [
+  {
+    title: "Easy Booking",
+    desc: "We offer easy and convenient flight bookings with attractive offers.",
+    icon: "📅",
+  },
+  {
+    title: "Lowest Price",
+    desc: "We ensure low rates on hotel reservation, holiday packages and on flight tickets.",
+    icon: "💸",
+  },
+  {
+    title: "Instant Refund",
+    desc: "Get instant refunds effortlessly on your travel bookings with us.",
+    icon: "💳",
+  },
+  {
+    title: "24/7 Support",
+    desc: "Get assistance 24/7 on any kind of travel related query. We are happy to assist you.",
+    icon: "📞",
+  },
+  {
+    title: "Exciting Deals",
+    desc: "Enjoy exciting deals on flights, hotels, buses, car rental and tour packages.",
+    icon: "🔥",
+  },
+];
+
+// Reviews Section (Carousel)
+const reviews = [
+  {
+    name: "Ravi",
+    date: "September 11",
+    title: "The most amazing prices",
+    desc: "The most amazing prices on flight tickets, has been my go-to website for all",
+  },
+  {
+    name: "Jagadeesh",
+    date: "September 10",
+    title: "Very Good platform",
+    desc: "Very Good platform for ticket booking",
+  },
+  {
+    name: "KartikChan",
+    date: "September 10",
+    title: "Very nice",
+    desc: "Very good dealings",
+  },
+  {
+    name: "Customer",
+    date: "September 8",
+    title: "My query was solved",
+    desc: "My query was solved within very short period. Thank you easemytrip...",
+  },
+  {
+    name: "Susan M",
+    date: "September 7",
+    title: "Easy to book",
+    desc: "Easy to book",
+  },
+];
 const Whybookus = () => {
 
   const [current, setCurrent] = useState(0);
@@ -78,7 +78,7 @@ const Whybookus = () => {
   return (
     <section className=" pt-12">
       <div className="px-6 md:px-16 lg:px-24">
-          {/* Heading */}
+        {/* Heading */}
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
           Why Book With Us?
         </h2>
@@ -133,15 +133,15 @@ const Whybookus = () => {
 
       </div>
 
-        {/* Description Section */}
-       <div className=" bg-slate-100">
-         <div className="mt-16  max-w-7xl mx-auto py-10 max-md:px-4">
+      {/* Description Section */}
+      <div className=" bg-slate-100">
+        <div className="mt-16  max-w-7xl mx-auto py-10 max-md:px-4">
           <h3 className="text-2xl font-bold mb-4 text-center">
             Search Flights, Hotels, Bus and Holiday Packages
           </h3>
           <p className="text-gray-600 text-sm md:text-base">
             EaseMyTrip is one of the largest online travel platforms in India, and
-            a trusted name in the Indian travel industry. We offer "end to end"
+            a trusted name in the Indian travel industry. We offer  &apos;End to End&apos;
             travel solutions including air tickets, hotel booking, cab and bus
             booking, train tickets and holiday packages. Additionally, we offer
             ancillary value-added services.
@@ -157,8 +157,8 @@ const Whybookus = () => {
             market. We promise to make your travel experience a memorable one.
           </p>
         </div>
-       </div>
-      </section>
+      </div>
+    </section>
   )
 }
 

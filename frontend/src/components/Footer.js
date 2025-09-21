@@ -110,7 +110,7 @@ const Footer = () => {
           /><span>TRAVELEASE</span>
         </div>
         <p className="text-sm md:text-base md:w-2/3 mx-auto md:mx-0 text-gray-300">
-          Travelease offers 'End to End' travel solutions including air tickets
+          Travelease offers  &apos;End to End&apos; travel solutions including air tickets
           for more than 400 international and domestic airlines, hotel bookings
           for nearly 1 million hotels in India and abroad, cab booking with
           4000+ cab operators, bus tickets with 2000+ bus operators, and railway
