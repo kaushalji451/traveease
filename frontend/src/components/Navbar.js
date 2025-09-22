@@ -12,8 +12,8 @@ import Image from "next/image";
 
 const navItems = [
   { icon: <BiSolidPlaneAlt />, label: "Flights", link: "/" },
-  { icon: <MdHotel />, label: "Hotels+Train", link: "/hotel" },
-  { icon: <IoMdTrain />, label: "Trains", link: "/hotel" },
+  { icon: <MdHotel />, label: "Hotels", link: "/hotel" },
+  { icon: <IoMdTrain />, label: "Trains", link: "/train" },
   { icon: <FaBus />, label: "Bus", link: "/bus" },
   { icon: <FaUmbrellaBeach />, label: "Holiday", link: "/holiday" },
   { icon: <IoIosMore />, label: "More", link: "#" },

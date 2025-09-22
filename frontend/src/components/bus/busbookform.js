@@ -35,13 +35,13 @@ const Busbookform = () => {
   };
 
   return (
-    <div className="bg-[#F5F9F6] flex justify-center items-center p-4 md:p-8">
+    <div className="bg-[#2E7D32] flex justify-center items-center p-4 md:p-8">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 md:p-10 rounded-lg shadow-lg max-w-5xl w-full"
+        className=" p-6 md:p-10 max-w-5xl w-full"
       >
         {/* Title */}
-        <div className="flex justify-between items-center mb-6 text-[#212121] font-semibold">
+        <div className="flex justify-between items-center mb-6 text-[#fff] font-semibold">
           <p className="text-lg md:text-2xl font-bold w-full text-center">
             Book Your Bus Tickets
           </p>
