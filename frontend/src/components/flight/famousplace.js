@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from "next/image";
 const attractions = [
-  { name: "Udaipur", img: "/udaipur.jpg" },
+  { name: "Udaipur", img: "/jaipur.jpg" },
   { name: "Andaman", img: "/Andaman.jpg" },
   { name: "Kashmir", img: "/kashmir.jpg" },
   { name: "Jaipur", img: "/jaipur.jpg" },

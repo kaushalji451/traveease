@@ -10,7 +10,7 @@ const deals = [
   {
     title: "BALI",
     duration: "4 Nights / 5 Days",
-    img: "/bali.jpg",
+    img: "/Bali.jpg",
   },
   {
     title: "KERALA",

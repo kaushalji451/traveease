@@ -14,7 +14,7 @@ const carouselImages = [
 const trendingDestinations = [
     { name: "Europe", image: "/europe.jpg" },
     { name: "Kerala", image: "/kerala.jpg" },
-    { name: "Bali", image: "/bali.jpg" },
+    { name: "Bali", image: "/Bali.jpg" },
     { name: "Kashmir", image: "/kashmir.jpg" },
     { name: "Vietnam", image: "/vietnam.jpg" },
 ];

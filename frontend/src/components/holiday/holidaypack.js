@@ -7,7 +7,7 @@ import Image from "next/image";
 
 const holidayPackages = [
   { title: "Kerala", price: "₹ 11,999", img: "/kerala.jpg" },
-  { title: "Andaman", price: "₹ 14,999", img: "/andaman.jpg" },
+  { title: "Andaman", price: "₹ 14,999", img: "/Andaman.jpg" },
   { title: "Gujarat", price: "₹ 14,999", img: "/gujarat.jpg" },
   { title: "Rajasthan", price: "₹ 6,199", img: "/jaipur.jpg" },
 ];
