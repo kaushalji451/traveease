@@ -1,8 +1,6 @@
 "use client";
 import React from 'react'
 import Image from 'next/image';
-const BUS_IMAGE_URL =
-  "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80";
 
 const Buswhybookus = () => {
   return (
@@ -12,10 +10,10 @@ const Buswhybookus = () => {
         {/* Left Section */}
         <div className="flex-1">
           <h1 className="text-xl font-bold mb-2">
-            Affordable & Reliable Bus Booking with TravelEase
+            Affordable & Reliable Bus Booking with RudrabhishekTravels
           </h1>
           <p className="text-gray-700 mb-6">
-            TravelEase brings you the easiest way to book bus tickets online. 
+            RudrabhishekTravels brings you the easiest way to book bus tickets online. 
             With access to thousands of bus operators across India, we ensure 
             smooth, affordable, and safe journeys. From luxury AC buses to 
             budget-friendly sleeper coaches, choose the perfect ride that suits 
@@ -30,7 +28,7 @@ const Buswhybookus = () => {
         {/* Right Section */}
         <div className="flex-shrink-0">
           <Image
-            src={BUS_IMAGE_URL}
+            src={"/busscroll.jpg"}
             width={320}
             height={224}
             alt="Bus"
@@ -42,7 +40,7 @@ const Buswhybookus = () => {
       {/* Why Book With Us */}
       <div className="max-w-5xl w-full">
         <h2 className="text-2xl font-bold mb-4 max-sm:text-center">
-          Why Book Buses with <span className="font-black">TravelEase.com?</span>
+          Why Book Buses with <span className="font-black">RudrabhishekTravels.com?</span>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
@@ -50,7 +48,7 @@ const Buswhybookus = () => {
           <div className="bg-white shadow rounded-xl p-6 flex flex-col items-center">
             <div className="bg-blue-100 p-3 rounded-full mb-4">
               <svg
-                className="w-8 h-8 text-[#66BB6A]"
+                className="w-8 h-8 text-[#A8E6A1]"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
@@ -98,7 +96,7 @@ const Buswhybookus = () => {
           <div className="bg-white shadow rounded-xl p-6 flex flex-col items-center">
             <div className="bg-blue-100 p-3 rounded-full mb-4">
               <svg
-                className="w-8 h-8 text-[#66BB6A]"
+                className="w-8 h-8 text-[#A8E6A1]"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
@@ -122,7 +120,7 @@ const Buswhybookus = () => {
           <div className="bg-white shadow rounded-xl p-6 flex flex-col items-center">
             <div className="bg-green-100 p-3 rounded-full mb-4">
               <svg
-                className="w-8 h-8 text-green-500"
+                className="w-8 h-8 text-[#A8E6A1]"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
@@ -147,14 +145,14 @@ const Buswhybookus = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
           <div className="bg-white shadow p-4 rounded-xl">
             <div className="flex items-center space-x-2 mb-1">
-              <span className="text-green-500">⭐⭐⭐⭐⭐</span>
+              <span className="text-[#A8E6A1]">⭐⭐⭐⭐⭐</span>
               <span className="text-xs text-gray-400">Verified</span>
             </div>
             <div className="font-semibold text-gray-800 text-sm mb-1">
               Super affordable bus tickets
             </div>
             <div className="text-gray-500 text-xs">
-              TravelEase always gives me the cheapest fares. I saved a lot on my
+              RudrabhishekTravels always gives me the cheapest fares. I saved a lot on my
               trips.
             </div>
             <div className="text-xs text-gray-400 mt-2">Ravi, September 11</div>
@@ -162,7 +160,7 @@ const Buswhybookus = () => {
 
           <div className="bg-white shadow p-4 rounded-xl">
             <div className="flex items-center space-x-2 mb-1">
-              <span className="text-green-500">⭐⭐⭐⭐⭐</span>
+              <span className="text-[#A8E6A1]">⭐⭐⭐⭐⭐</span>
               <span className="text-xs text-gray-400">Verified</span>
             </div>
             <div className="font-semibold text-gray-800 text-sm mb-1">
@@ -178,7 +176,7 @@ const Buswhybookus = () => {
 
           <div className="bg-white shadow p-4 rounded-xl">
             <div className="flex items-center space-x-2 mb-1">
-              <span className="text-green-500">⭐⭐⭐⭐⭐</span>
+              <span className="text-[#A8E6A1]">⭐⭐⭐⭐⭐</span>
             </div>
             <div className="font-semibold text-gray-800 text-sm mb-1">
               Comfortable travel
@@ -193,14 +191,14 @@ const Buswhybookus = () => {
 
           <div className="bg-white shadow p-4 rounded-xl">
             <div className="flex items-center space-x-2 mb-1">
-              <span className="text-green-500">⭐⭐⭐⭐⭐</span>
+              <span className="text-[#A8E6A1]">⭐⭐⭐⭐⭐</span>
               <span className="text-xs text-gray-400">Verified</span>
             </div>
             <div className="font-semibold text-gray-800 text-sm mb-1">
               Quick support team
             </div>
             <div className="text-gray-500 text-xs">
-              My query was solved quickly by the TravelEase team. Great
+              My query was solved quickly by the RudrabhishekTravels team. Great
               service!
             </div>
             <div className="text-xs text-gray-400 mt-2">

@@ -30,7 +30,7 @@ const trainFAQs = [
   {
     question: "How to check train status and updates?",
     answer:
-      "You can check real-time train status, schedules, and updates via the TravelEase platform or the IRCTC website/app."
+      "You can check real-time train status, schedules, and updates via the RudrabhishekTravels platform or the IRCTC website/app."
   }
 ];
 

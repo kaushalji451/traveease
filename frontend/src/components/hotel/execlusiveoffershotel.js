@@ -4,27 +4,27 @@ import Image from "next/image";
 const offers = [
     {
         text: "Luxury Hotels in Goa – Save up to 40% this season",
-        img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000",
+        img: "/hotelscroll.jpg",
     },
     {
         text: "Book 5-Star Stays in Dubai – Starting from INR 6,999/night*",
-        img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000",
+        img: "/hotelscroll.jpg",
     },
     {
         text: "Exclusive Student Hotel Deals – Special discounts & free WiFi",
-        img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000",
+        img: "/hotelscroll.jpg",
     },
     {
         text: "Best Price Guarantee on Hotels – Find cheaper, get refund",
-        img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000",
+        img: "/hotelscroll.jpg",
     },
     {
         text: "Weekend Getaway Deals – Hotels under INR 2,999/night",
-        img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000",
+        img: "/hotelscroll.jpg",
     },
     {
         text: "Family Hotel Packages – Stay together & save more",
-        img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000",
+        img: "/hotelscroll.jpg",
     },
 ];
 const Execlusiveoffershotel = () => {

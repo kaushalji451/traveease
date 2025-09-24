@@ -77,7 +77,7 @@ const PassangerContact = () => {
           <div className="flex justify-end">
             <button
               type="submit"
-              className="bg-[#66BB6A] text-white py-2 px-8 rounded hover:bg-[#66BB6A] focus:outline-none"
+              className="bg-[#A8E6A1] text-white py-2 px-8 rounded hover:bg-[#A8E6A1] focus:outline-none"
             >
               Update
             </button>

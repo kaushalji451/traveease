@@ -8,63 +8,63 @@ const routes = [
     from: "Chennai",
     to: "Mumbai",
     code: "MAA-BOM",
-    img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D", // replace with actual image URLs
+    img: "/chennai.jpg",
     link: "/flights/MAA-BOM",
   },
   {
     from: "Mumbai",
     to: "Chennai",
     code: "BOM-MAA",
-    img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+    img: "/mumbai.jpg",
     link: "/flights/BOM-MAA",
   },
   {
     from: "Hyderabad",
     to: "Bangalore",
     code: "HYD-BLR",
-    img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+    img: "/hyderabad.jpg",
     link: "/flights/HYD-BLR",
   },
   {
     from: "Delhi",
     to: "Ahmedabad",
     code: "DEL-AMD",
-    img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+    img: "/delhi.jpg",
     link: "/flights/DEL-AMD",
   },
   {
     from: "Mumbai",
     to: "Dubai",
     code: "BOM-DXB",
-    img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+    img: "/dubai.jpg",
     link: "/flights/BOM-DXB",
   },
   {
     from: "Mumbai",
     to: "Jaipur",
     code: "BOM-JAI",
-    img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+    img: "/jaipur.jpg",
     link: "/flights/BOM-JAI",
   },
   {
     from: "Delhi",
     to: "Lucknow",
     code: "DEL-LKO",
-    img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+    img: "/lucknow.jpg",
     link: "/flights/DEL-LKO",
   },
   {
     from: "Mumbai",
     to: "Kolkata",
     code: "BOM-CCU",
-    img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+    img: "/kolkata.jpg",
     link: "/flights/BOM-CCU",
   },
   {
     from: "Delhi",
     to: "Dubai",
     code: "DEL-DXB",
-    img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+    img: "/dubai.jpg",
     link: "/flights/DEL-DXB",
   },
 ];
@@ -89,13 +89,13 @@ const Topflightroot = () => {
                  alt={`${route.from} to ${route.to}`}
                  width={64}
                  height={64}
-                 className="rounded-lg object-cover"
+                 className="rounded-lg object-cover h-20 w-20"
                />
                <div>
                  <p className="font-semibold">
                    {route.from} <span className="text-gray-500">↝</span> {route.to}
                  </p>
-                 <p className="text-[#66BB6A] font-medium">{route.code}</p>
+                 <p className="text-[#A8E6A1] font-medium">{route.code}</p>
                </div>
              </Link>
            ))}

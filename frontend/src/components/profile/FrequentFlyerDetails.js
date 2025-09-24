@@ -65,7 +65,7 @@ const FrequentFlyerDetails = () => {
           <div className="flex justify-end">
             <button
               type="submit"
-              className="bg-[#66BB6A] text-white py-2 px-8 rounded hover:bg-[#66BB6A]"
+              className="bg-[#A8E6A1] text-white py-2 px-8 rounded hover:bg-[#A8E6A1]"
             >
               Submit
             </button>

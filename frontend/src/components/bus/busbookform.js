@@ -35,7 +35,7 @@ const Busbookform = () => {
   };
 
   return (
-    <div className="bg-[#2E7D32] flex justify-center items-center p-4 md:p-8">
+    <div className="bg-gradient-to-b from-[#A8E6A1] via-[#BFF5B2] to-[#D4F8C4] flex justify-center items-center p-4 md:p-8">
       <form
         onSubmit={handleSubmit}
         className=" p-6 md:p-10 max-w-5xl w-full"
@@ -66,7 +66,7 @@ const Busbookform = () => {
           {/* Swap */}
           <div
             onClick={handleSwap}
-            className="px-2 text-gray-500 cursor-pointer hover:text-[#2E7D32]"
+            className="px-2 text-gray-500 cursor-pointer hover:text-[#A8E6A1]"
           >
             <FaExchangeAlt size={20} />
           </div>
@@ -87,7 +87,7 @@ const Busbookform = () => {
 
           {/* Date */}
           <div className="flex-1 min-w-[150px]">
-            <p className="text-xs text-gray-500">TRAVEL DATE</p>
+            <p className="text-xs text-[#A8E6A1]">TRAVEL DATE</p>
             <input
               type="date"
               name="date"

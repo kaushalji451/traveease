@@ -5,27 +5,27 @@ import Image from "next/image";
 const offers = [
   {
     text: "SriLankan Airlines – Best Discounts on Flights",
-    img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000",
+    img: "/flightscroll.jpg",
   },
   {
     text: "Fly Delhi to Milan with ITA Airways – Starting from INR 50,655*",
-    img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000",
+    img: "/flightscroll.jpg",
   },
   {
     text: "Exclusive Student Traveller Deals – Extra baggage & discounts",
-    img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000",
+    img: "/flightscroll.jpg",
   },
   {
     text: "Best Price Guarantee on Hotels – Find cheaper, get refund",
-    img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000",
+    img: "/flightscroll.jpg",
   },
   {
     text: "Special Flight Deals – Save more on your next trip",
-    img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000",
+    img: "/flightscroll.jpg",
   },
   {
     text: "Extra Discounts for Families – Travel together & save",
-    img: "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000",
+    img: "/flightscroll.jpg",
   },
 ];
 

@@ -6,10 +6,10 @@ import Link from "next/link";
 import Image from "next/image";
 
 const holidayPackages = [
-  { title: "Kerala", price: "₹ 11,999", img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" },
-  { title: "Andaman", price: "₹ 14,999", img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" },
-  { title: "Gujarat", price: "₹ 14,999", img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" },
-  { title: "Rajasthan", price: "₹ 6,199", img: "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=80" },
+  { title: "Kerala", price: "₹ 11,999", img: "/kerala.jpg" },
+  { title: "Andaman", price: "₹ 14,999", img: "/andaman.jpg" },
+  { title: "Gujarat", price: "₹ 14,999", img: "/gujarat.jpg" },
+  { title: "Rajasthan", price: "₹ 6,199", img: "/jaipur.jpg" },
 ];
 
 const holidayThemes = [
@@ -27,7 +27,7 @@ const NextArrow = ({ onClick }) => (
       onClick={onClick}
       className="bg-white shadow-md p-2 sm:p-3 rounded-full hover:bg-gray-200"
     >
-      <FaArrowRight className="text-[#66BB6A] text-sm sm:text-base" />
+      <FaArrowRight className="text-[#A8E6A1] text-sm sm:text-base" />
     </button>
   </div>
 );
@@ -38,7 +38,7 @@ const PrevArrow = ({ onClick }) => (
       onClick={onClick}
       className="bg-white shadow-md p-2 sm:p-3 rounded-full hover:bg-gray-200"
     >
-      <FaArrowLeft className="text-[#66BB6A] text-sm sm:text-base" />
+      <FaArrowLeft className="text-[#A8E6A1] text-sm sm:text-base" />
     </button>
   </div>
 );
@@ -158,14 +158,14 @@ export default function Holidaypack() {
           {holidayThemes.map((theme, idx) => (
             <div key={idx} className="px-4 flex-shrink-0"> {/* increased px and flex-shrink-0 */}
               <div className="flex flex-col items-center justify-center text-center bg-white 
-                rounded-full border-2 border-[#66BB6A] 
+                rounded-full border-2 border-[#A8E6A1] 
                 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 
                 mx-auto shadow-md hover:shadow-lg transition">
                 <div className="text-xl sm:text-2xl md:text-4xl">{theme.icon}</div>
                 <h3 className="font-bold mt-1 sm:mt-2 text-xs sm:text-sm md:text-base">
                   {theme.title}
                 </h3>
-                <p className="text-[10px] sm:text-xs md:text-sm text-[#66BB6A]">
+                <p className="text-[10px] sm:text-xs md:text-sm text-[#A8E6A1]">
                   {theme.desc}
                 </p>
               </div>

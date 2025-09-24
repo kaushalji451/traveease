@@ -5,32 +5,32 @@ const deals = [
   {
     title: "KASHMIR",
     duration: "5 Nights / 6 Days",
-    img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+    img: "/kashmir.jpg",
   },
   {
     title: "BALI",
     duration: "4 Nights / 5 Days",
-    img: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=800&q=80",
+    img: "/bali.jpg",
   },
   {
     title: "KERALA",
     duration: "4 Nights / 5 Days",
-    img: "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=500&q=80",
+    img: "/kerala.jpg",
   },
   {
     title: "HIMACHAL PRADESH",
     duration: "5 Nights / 6 Days",
-    img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+    img: "/himachal.jpg",
   },
   {
     title: "THAILAND",
     duration: "4 Nights / 5 Days",
-    img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
+    img: "/thailand.jpg",
   },
   {
     title: "SINGAPORE",
     duration: "3 Nights / 4 Days",
-    img: "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=500&q=80",
+    img: "/singapore.jpg",
   },
 ];
 
@@ -88,7 +88,7 @@ const Holidaydeals = () => {
         </div>
 
         {/* Testimonials Section */}
-        <section className="bg-gradient-to-r bg-[#66BB6A] rounded-2xl p-8 flex flex-col md:flex-row items-center gap-6 overflow-hidden relative">
+        <section className="bg-gradient-to-r bg-[#A8E6A1] rounded-2xl p-8 flex flex-col md:flex-row items-center gap-6 overflow-hidden relative">
           {/* Left Content */}
           <div className="text-white flex-1 max-w-xl">
             <p

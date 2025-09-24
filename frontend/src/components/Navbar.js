@@ -28,13 +28,13 @@ const Navbar = () => {
         {/* Logo */}
        <div className="flex items-center">
          <Image
-          src={"/logo.png"}
+          src={"/logo1.png"}
           alt="logo"
           width={80}
           height={50}
         />
-        <Link href={"/"} className="text-3xl font-bold tracking-wide text-[#2E7D32]">
-          TRAVELEASE
+        <Link href={"/"} className="text-2xl font-bold tracking-wide text-[#A8E6A1]">
+          RudrabhishekTravels
         </Link>
        </div>
 
@@ -56,7 +56,7 @@ const Navbar = () => {
 
         {/* User Section (Desktop Only) */}
         <Link href={"/profile"} className="hidden md:flex px-3 py-2 gap-2 
-        items-center justify-center min-w-20 rounded-xl text-white bg-[#2E7D32] cursor-pointer shadow-sm hover:shadow-md">
+        items-center justify-center min-w-20 rounded-xl text-white bg-[#A8E6A1]  cursor-pointer shadow-sm hover:shadow-md">
           <FaCircleUser className="text-xl" />
           <h1 className="font-medium">Hi</h1>
         </Link>
@@ -64,7 +64,7 @@ const Navbar = () => {
         {/* Mobile Hamburger Button */}
         <button
           onClick={() => setMobileOpen(true)}
-          className="md:hidden text-3xl text-[#2E7D32]"
+          className="md:hidden text-3xl text-[#A8E6A1]"
         >
           <HiMenuAlt3 />
         </button>
@@ -78,7 +78,7 @@ const Navbar = () => {
         {/* Close Button */}
         <button
           onClick={() => setMobileOpen(false)}
-          className="absolute top-5 right-5 text-3xl text-[#2E7D32]"
+          className="absolute top-5 right-5 text-3xl text-[#A8E6A1]"
         >
           <HiX />
         </button>
@@ -92,14 +92,14 @@ const Navbar = () => {
               className="flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer 
               hover:bg-blue-100 transition"
             >
-              <span className="text-xl text-[#2E7D32]">{item.icon}</span>
+              <span className="text-xl text-[#A8E6A1]">{item.icon}</span>
               <p className="text-base font-medium">{item.label}</p>
             </Link>
           ))}
         </ul>
 
         {/* User Section inside Sidebar */}
-        <Link href={"/profile"} className="mt-10 mx-6 p-4 flex items-center gap-3 rounded-xl bg-[#2E7D32] text-white cursor-pointer">
+        <Link href={"/profile"} className="mt-10 mx-6 p-4 flex items-center gap-3 rounded-xl bg-[#A8E6A1] text-white cursor-pointer">
           <FaCircleUser className="text-2xl" />
           <h1 className="font-medium">Hi</h1>
         </Link>

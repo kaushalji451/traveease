@@ -5,27 +5,27 @@ import Image from "next/image";
 const offers = [
   {
     text: "Luxury AC Sleeper Buses – Save up to 30% on Goa trips",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQasKPDCewT1v2j4mJjfCN1rqH2SczejiwkoA&s",
+    img: "/busscroll.jpg",
   },
   {
     text: "Delhi → Manali Volvo Bus – Starting from INR 899*",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQasKPDCewT1v2j4mJjfCN1rqH2SczejiwkoA&s",
+    img: "/busscroll.jpg",
   },
   {
     text: "Student Bus Pass Deals – Extra 15% OFF on all routes",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQasKPDCewT1v2j4mJjfCN1rqH2SczejiwkoA&s",
+    img: "/busscroll.jpg",
   },
   {
     text: "Lowest Price Guarantee – Find cheaper bus ticket, get refund",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQasKPDCewT1v2j4mJjfCN1rqH2SczejiwkoA&s",
+    img: "/busscroll.jpg",
   },
   {
     text: "Weekend Getaway Bus Deals – Tickets under INR 499",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQasKPDCewT1v2j4mJjfCN1rqH2SczejiwkoA&s",
+    img: "/busscroll.jpg",
   },
   {
     text: "Family Travel Bus Packages – Save more when you book together",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQasKPDCewT1v2j4mJjfCN1rqH2SczejiwkoA&s",
+    img: "/busscroll.jpg",
   },
 ];
 

@@ -3,48 +3,47 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-// Replace these routes with actual popular train routes
 const trainRoutes = [
   {
     from: "Delhi",
     to: "Mumbai",
     code: "NDLS-BCT",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9SRRmhH4X5N2e4QalcoxVbzYsD44C-sQv-w&s", // sample train image
+    img: "/delhi.jpg",
     link: "/trains/NDLS-BCT",
   },
   {
     from: "Mumbai",
     to: "Chennai",
     code: "CSTM-MAS",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9SRRmhH4X5N2e4QalcoxVbzYsD44C-sQv-w&s",
+    img: "/mumbai.jpg",
     link: "/trains/CSTM-MAS",
   },
   {
     from: "Hyderabad",
     to: "Bangalore",
     code: "HYB-SBC",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9SRRmhH4X5N2e4QalcoxVbzYsD44C-sQv-w&s",
+    img: "/hyderabad.jpg",
     link: "/trains/HYB-SBC",
   },
   {
     from: "Delhi",
     to: "Lucknow",
     code: "NDLS-LKO",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9SRRmhH4X5N2e4QalcoxVbzYsD44C-sQv-w&s",
+    img: "/lucknow.jpg",
     link: "/trains/NDLS-LKO",
   },
   {
     from: "Kolkata",
     to: "Patna",
     code: "KOAA-PAT",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9SRRmhH4X5N2e4QalcoxVbzYsD44C-sQv-w&s",
+    img: "/kolkata.jpg",
     link: "/trains/KOAA-PAT",
   },
   {
     from: "Bangalore",
     to: "Goa",
     code: "SBC-DBO",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9SRRmhH4X5N2e4QalcoxVbzYsD44C-sQv-w&s",
+    img: "/goa.jpg",
     link: "/trains/SBC-DBO",
   },
 ];
@@ -62,7 +61,7 @@ const Toptrainroutes = () => {
           <Link
             href={route.link}
             key={idx}
-            className="flex items-center gap-4 p-4 border border-[#66BB6A] rounded-lg bg-[#66BB6A]/30 transition"
+            className="flex items-center gap-4 p-4 border border-[#A8E6A1] rounded-lg bg-[#A8E6A1]/30 transition"
           >
             <Image
               src={route.img}
@@ -75,7 +74,7 @@ const Toptrainroutes = () => {
               <p className="font-semibold">
                 {route.from} <span className="text-gray-500">↝</span> {route.to}
               </p>
-              <p className="text-[#66BB6A] font-medium">{route.code}</p>
+              <p className="text-[#A8E6A1] font-medium">{route.code}</p>
             </div>
           </Link>
         ))}

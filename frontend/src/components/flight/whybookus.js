@@ -55,7 +55,7 @@ const reviews = [
     name: "Customer",
     date: "September 8",
     title: "My query was solved",
-    desc: "My query was solved within very short period. Thank you easemytrip...",
+    desc: "My query was solved within very short period. Thank you RudrabhishekTravels...",
   },
   {
     name: "Susan M",
@@ -140,7 +140,7 @@ const Whybookus = () => {
             Search Flights, Hotels, Bus and Holiday Packages
           </h3>
           <p className="text-gray-600 text-sm md:text-base">
-            EaseMyTrip is one of the largest online travel platforms in India, and
+            RudrabhishekTravels is one of the largest online travel platforms in India, and
             a trusted name in the Indian travel industry. We offer  &apos;End to End&apos;
             travel solutions including air tickets, hotel booking, cab and bus
             booking, train tickets and holiday packages. Additionally, we offer
@@ -153,7 +153,7 @@ const Whybookus = () => {
             <br />
             We believe in transparency and honesty in all our dealings. We do not
             charge any hidden fees, and our prices are always competitive. With
-            EaseMyTrip, you can be assured of getting the best travel deals in the
+            RudrabhishekTravels, you can be assured of getting the best travel deals in the
             market. We promise to make your travel experience a memorable one.
           </p>
         </div>

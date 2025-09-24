@@ -12,11 +12,11 @@ const carouselImages = [
 ];
 
 const trendingDestinations = [
-    { name: "Europe", image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=400&q=80" },
-    { name: "Kerala", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80" },
-    { name: "Bali", image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=400&q=80" },
-    { name: "Kashmir", image: "https://images.travelandleisureasia.com/wp-content/uploads/sites/3/2024/01/15134114/kashmir-deepanshu-nayak-1600x900.jpeg" },
-    { name: "Vietnam", image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" },
+    { name: "Europe", image: "/europe.jpg" },
+    { name: "Kerala", image: "/kerala.jpg" },
+    { name: "Bali", image: "/bali.jpg" },
+    { name: "Kashmir", image: "/kashmir.jpg" },
+    { name: "Vietnam", image: "/vietnam.jpg" },
 ];
 
 const menuItems = [

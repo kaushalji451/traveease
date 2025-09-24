@@ -8,14 +8,14 @@ const Trainbookinginfo = () => {
      <div className=" min-h-screen max-w-7xl mx-auto px-6 md:px-20 py-10 text-gray-800">
       {/* Page Header */}
       <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">
-        Book Train Tickets Online With <span className="text-green-700">TravelEase</span>
+        Book Train Tickets Online With <span className="text-green-700">RudrabhishekTravels</span>
       </h1>
 
       <p className="mb-6 text-justify">
-        <strong>TravelEase</strong> is one of the most leading and trusted travel platforms in India that offers online train booking services to millions of users. As a fast-growing company, we aim to provide users with multiple benefits and make their train travel hassle-free. Advantages of booking train tickets with <strong>TravelEase</strong> include wallet-friendly prices, optimal convenience, customer assistance, and an opportunity to spend quality time with family. 
+        <strong>RudrabhishekTravels</strong> is one of the most leading and trusted travel platforms in India that offers online train booking services to millions of users. As a fast-growing company, we aim to provide users with multiple benefits and make their train travel hassle-free. Advantages of booking train tickets with <strong>RudrabhishekTravels</strong> include wallet-friendly prices, optimal convenience, customer assistance, and an opportunity to spend quality time with family. 
       </p>
       <p className="mb-6 text-justify">
-        With <strong>TravelEase</strong>, you can select and track different train routes, timings, fares, and seat details for your tickets. Our platform also integrates next-generation e-ticketing and e-catering services offered by IRCTC. Additional features include live station/train status, 24/7 customer support, instant cancellations, and refund options. Customize your journey by selecting train type, seat, category, or quota to ensure convenience every step of the way.
+        With <strong>RudrabhishekTravels</strong>, you can select and track different train routes, timings, fares, and seat details for your tickets. Our platform also integrates next-generation e-ticketing and e-catering services offered by IRCTC. Additional features include live station/train status, 24/7 customer support, instant cancellations, and refund options. Customize your journey by selecting train type, seat, category, or quota to ensure convenience every step of the way.
       </p>
 
       {/* Benefits Section */}
@@ -29,7 +29,7 @@ const Trainbookinginfo = () => {
       </ul>
 
       {/* Tatkal Booking Strategies */}
-      <h2 className="text-2xl font-bold mt-8 mb-4">Best Strategies to Book Tatkal Train Tickets with TravelEase</h2>
+      <h2 className="text-2xl font-bold mt-8 mb-4">Best Strategies to Book Tatkal Train Tickets with RudrabhishekTravels</h2>
       <ul className="list-disc list-inside mb-6 space-y-2">
         <li><strong>Prefer Advance Preparation:</strong> Keep names, age, and identity details ready for smooth booking.</li>
         <li><strong>Rely on Better Network Connections:</strong> Use fast, efficient internet to avoid delays during booking.</li>
@@ -55,9 +55,9 @@ const Trainbookinginfo = () => {
       </ul>
 
       {/* How to Book */}
-      <h2 className="text-2xl font-bold mt-8 mb-4">How to Book Train Ticket Online on TravelEase</h2>
+      <h2 className="text-2xl font-bold mt-8 mb-4">How to Book Train Ticket Online on RudrabhishekTravels</h2>
       <ol className="list-decimal list-inside mb-6 space-y-2 text-justify">
-        <li>Visit <strong>travelease.com</strong> and click on the Trains tab.</li>
+        <li>Visit <strong>RudrabhishekTravels.com</strong> and click on the Trains tab.</li>
         <li>Enter departure and destination points, select departure date, and click Search.</li>
         <li>Choose a train and seat based on your preference. Use filters for seat type or category.</li>
         <li>Confirm your departure and destination stations and click Continue.</li>
@@ -68,10 +68,10 @@ const Trainbookinginfo = () => {
         <li>Complete IRCTC authentication and receive your e-ticket on your mobile and email.</li>
       </ol>
 
-      {/* Why TravelEase */}
-      <h2 className="text-2xl font-bold mt-8 mb-4">Book Train Easily with TravelEase</h2>
+      {/* Why RudrabhishekTravels */}
+      <h2 className="text-2xl font-bold mt-8 mb-4">Book Train Easily with RudrabhishekTravels</h2>
       <p className="mb-6 text-justify">
-        Travelling across India by train is cost-effective and convenient. Trains cover long distances quickly, have large capacities, and provide comfort and reliability. <strong>TravelEase</strong> empowers passengers to book online tickets effortlessly and enjoy a seamless travel experience. Choose TravelEase, your most trusted train booking platform, to make your journey safe, fast, and convenient.
+        Travelling across India by train is cost-effective and convenient. Trains cover long distances quickly, have large capacities, and provide comfort and reliability. <strong>RudrabhishekTravels</strong> empowers passengers to book online tickets effortlessly and enjoy a seamless travel experience. Choose RudrabhishekTravels, your most trusted train booking platform, to make your journey safe, fast, and convenient.
       </p>
 
       {/* Disclaimer */}
