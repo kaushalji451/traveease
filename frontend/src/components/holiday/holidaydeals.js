@@ -88,7 +88,7 @@ const Holidaydeals = () => {
         </div>
 
         {/* Testimonials Section */}
-        <section className="bg-gradient-to-r bg-[#A8E6A1] rounded-2xl p-8 flex flex-col md:flex-row items-center gap-6 overflow-hidden relative">
+        <section className="bg-gradient-to-b from-[#6DAA5C] via-[#7FBF6D] to-[#98D487] rounded-2xl p-8 flex flex-col md:flex-row items-center gap-6 overflow-hidden relative">
           {/* Left Content */}
           <div className="text-white flex-1 max-w-xl">
             <p

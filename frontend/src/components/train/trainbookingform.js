@@ -31,7 +31,7 @@ const TravelBookingForm = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center bg-gradient-to-b from-[#A8E6A1] via-[#BFF5B2] to-[#D4F8C4] py-6 px-2 md:px-0">
+    <div className="w-full flex flex-col items-center bg-gradient-to-b from-[#6DAA5C] via-[#7FBF6D] to-[#98D487] py-6 px-2 md:px-0">
       {/* Top Options */}
       <div className="w-full max-w-7xl flex flex-wrap justify-between items-center text-white mb-4 gap-2 md:gap-4">
         <div className="flex flex-wrap gap-2 md:gap-4">

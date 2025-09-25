@@ -42,13 +42,13 @@ const Footer = () => {
                 className={`cursor-pointer py-2 px-3 text-sm border-b border-gray-700 transition
                   ${
                     active === item
-                      ? "bg-[#A8E6A1] text-white relative"
+                      ? "bg-[#6DAA5C] text-white relative"
                       : "text-gray-300 hover:text-white"
                   }`}
               >
                 {item}
                 {active === item && (
-                  <span className="absolute right-0 top-0 h-full w-2 bg-[#A8E6A1]"></span>
+                  <span className="absolute right-0 top-0 h-full w-2 bg-[#6DAA5C]"></span>
                 )}
               </li>
             ))}
@@ -86,7 +86,7 @@ const Footer = () => {
                     {col.map((link) => (
                       <span
                         key={link}
-                        className="hover:text-[#A8E6A1] cursor-pointer flex items-center gap-2"
+                        className="hover:text-[#6DAA5C] cursor-pointer flex items-center gap-2"
                       >
                         {link}
                       </span>
@@ -101,7 +101,7 @@ const Footer = () => {
 
       {/* Middle Branding Section */}
       <div className="border-b border-white/10 px-6 md:px-10 py-6 text-center md:text-left">
-        <div className="flex items-center md:text-4xl font-bold py-2 text-[#A8E6A1]">
+        <div className="flex items-center md:text-4xl font-bold py-2 text-[#6DAA5C]">
           <Image 
             src={"/logo1.png"}
             alt="logo"

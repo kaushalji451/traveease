@@ -1,25 +1,20 @@
-"use client"
-import React, { useState } from "react";
-import Flightbookform from "@/components/flight/flightbookform";
-import Topflightroot from "@/components/flight/topflightroot";
-import Whybookus from "@/components/flight/whybookus";
-import Famousplace from "@/components/flight/famousplace";
-import ExclusiveOffers from "@/components/flight/exclusiveOffers";
-const page = () => {
+"use client";
+import React from "react";
+import Holidaybookform from "@/components/holiday/holidaybookform";
+import Holidaydeals from "@/components/holiday/holidaydeals";
+import Holidaypack from "@/components/holiday/holidaypack";
+import Holidaywhybookus from "@/components/holiday/holidaywhybookus";
+export default function Page() {
   return (
     <div>
-      {/* flight book form */}
-      <Flightbookform />
-      {/* ExclusiveOffers */}
-      <ExclusiveOffers />
-      {/* Top Flight Routes */}
-      <Topflightroot />
-      {/* famus place */}
-      <Famousplace />
-      {/* why book us */}
-      <Whybookus />
+      {/* Booking Form */}
+      <Holidaybookform />
+      {/* Holiday Deals Section */}
+      <Holidaydeals />
+      {/* Holiday Packages Section */}
+      <Holidaypack />
+      {/* Why Book With Us Section */}
+      <Holidaywhybookus />
     </div>
-  )
+  );
 }
-
-export default page

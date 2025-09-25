@@ -1,10 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { FaExchangeAlt } from "react-icons/fa";
-import indianAirports from "./indiaairportdata"; // the array we created
-import { FaPlane } from "react-icons/fa";
+import { FaExchangeAlt, FaPlane } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import indianAirports from "./indiaairportdata";
 
 const Flightbookform = () => {
+  const router = useRouter();
   const [tripType, setTripType] = useState("oneway");
   const [formData, setFormData] = useState({
     from: "DEL",
@@ -32,7 +33,7 @@ const Flightbookform = () => {
   const handleAirportSelect = (type, airport) => {
     setFormData({
       ...formData,
-      [type]: airport.code, // save only the code
+      [type]: airport.code,
     });
     if (type === "from") {
       setFromQuery(`${airport.city} (${airport.code})`);
@@ -43,16 +44,8 @@ const Flightbookform = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-  };
-
   const searchAirports = (query, setResults) => {
-    if (!query) {
-      setResults([]);
-      return;
-    }
+    if (!query) return setResults([]);
     const results = indianAirports.filter(
       (airport) =>
         airport.city.toLowerCase().includes(query.toLowerCase()) ||
@@ -62,10 +55,27 @@ const Flightbookform = () => {
     setResults(results.slice(0, 8));
   };
 
+  // ✅ Navigate to results page with query params
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const query = new URLSearchParams({
+      from: formData.from,
+      to: formData.to,
+      date: formData.departure,
+      returnDate: formData.returnDate || "",
+      adults: formData.travellers.toString(),
+      class: formData.travelClass,
+      specialFare: formData.specialFare || "",
+      tripType: tripType,
+    });
+
+    router.push(`/FlightList?${query.toString()}`);
+  };
+
   return (
-    <div className="bg-gradient-to-b from-[#A8E6A1] via-[#BFF5B2] to-[#D4F8C4] flex justify-center items-center p-4 md:p-8">
+    <div className="bg-gradient-to-b from-[#6DAA5C] via-[#7FBF6D] to-[#98D487] flex justify-center items-center p-4 md:p-8">
       <form onSubmit={handleSubmit} className="p-6 md:p-10 max-w-7xl w-full">
-        {/* Trip Type Selection */}
+        {/* Trip Type & Title */}
         <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6 text-[#212121] font-semibold">
           <div className="flex gap-3 flex-wrap">
             {["oneway", "roundtrip", "multicity"].map((type) => (
@@ -74,8 +84,8 @@ const Flightbookform = () => {
                 key={type}
                 onClick={() => setTripType(type)}
                 className={`px-4 py-2 rounded-full transition ${tripType !== type
-                  ? "hover:bg-[#A8E6A1] text-white"
-                  : "bg-[#93de8b] text-white "
+                    ? "hover:bg-[#A8E6A1] text-white"
+                    : "bg-[#93de8b] text-white"
                   }`}
               >
                 {type === "oneway"
@@ -91,7 +101,7 @@ const Flightbookform = () => {
           </p>
         </div>
 
-        {/* Main Search Box */}
+        {/* Airports, Dates, Traveller & Class */}
         <div className="bg-[#F5F9F6] rounded-xl shadow-inner flex flex-wrap items-center justify-start gap-4 p-4">
           {/* From */}
           <div className="flex-1 min-w-[180px] relative">
@@ -111,10 +121,9 @@ const Flightbookform = () => {
                 {fromResults.map((airport) => (
                   <li
                     key={airport.code}
-                    onClick={() => handleAirportSelect("from", airport)} // ✅ FIXED: use "from"
+                    onClick={() => handleAirportSelect("from", airport)}
                     className="flex items-center justify-between px-3 py-2 cursor-pointer hover:bg-gray-100"
                   >
-                    {/* Left side: plane icon and main info */}
                     <div className="flex items-center gap-2 flex-1">
                       <FaPlane className="text-gray-400 text-xl" />
                       <div>
@@ -124,7 +133,6 @@ const Flightbookform = () => {
                         <div className="text-xs text-gray-600">{airport.name}</div>
                       </div>
                     </div>
-                    {/* Right side: country */}
                     <span className="text-xs text-gray-500 pl-2">
                       {airport.country || "India"}
                     </span>
@@ -134,7 +142,7 @@ const Flightbookform = () => {
             )}
           </div>
 
-          {/* Swap Icon */}
+          {/* Swap */}
           <div
             onClick={handleSwap}
             className="px-2 text-gray-500 cursor-pointer hover:text-[#A8E6A1]"
@@ -160,10 +168,9 @@ const Flightbookform = () => {
                 {toResults.map((airport) => (
                   <li
                     key={airport.code}
-                    onClick={() => handleAirportSelect("to", airport)} // ✅ FIXED: use "from"
+                    onClick={() => handleAirportSelect("to", airport)}
                     className="flex items-center justify-between px-3 py-2 cursor-pointer hover:bg-gray-100"
                   >
-                    {/* Left side: plane icon and main info */}
                     <div className="flex items-center gap-2 flex-1">
                       <FaPlane className="text-gray-400 text-xl" />
                       <div>
@@ -173,7 +180,6 @@ const Flightbookform = () => {
                         <div className="text-xs text-gray-600">{airport.name}</div>
                       </div>
                     </div>
-                    {/* Right side: country */}
                     <span className="text-xs text-gray-500 pl-2">
                       {airport.country || "India"}
                     </span>
@@ -183,12 +189,11 @@ const Flightbookform = () => {
             )}
           </div>
 
-          {/* Departure Date */}
+          {/* Dates */}
           <div className="flex-1 min-w-[150px]">
             <p className="text-xs text-gray-500">DEPARTURE DATE</p>
             <input
               type="date"
-              name="departure"
               value={formData.departure}
               onChange={(e) =>
                 setFormData({ ...formData, departure: e.target.value })
@@ -197,14 +202,11 @@ const Flightbookform = () => {
               required
             />
           </div>
-
-          {/* Return Date */}
           {tripType === "roundtrip" && (
             <div className="flex-1 min-w-[150px]">
               <p className="text-xs text-gray-500">RETURN DATE</p>
               <input
                 type="date"
-                name="returnDate"
                 value={formData.returnDate}
                 onChange={(e) =>
                   setFormData({ ...formData, returnDate: e.target.value })
@@ -215,13 +217,12 @@ const Flightbookform = () => {
             </div>
           )}
 
-          {/* Traveller & Class */}
+          {/* Travellers & Class */}
           <div className="flex-1 min-w-[150px]">
             <p className="text-xs text-gray-500">TRAVELLER & CLASS</p>
             <div className="flex gap-2 flex-wrap">
               <input
                 type="number"
-                name="travellers"
                 min="1"
                 value={formData.travellers}
                 onChange={(e) =>
@@ -230,7 +231,6 @@ const Flightbookform = () => {
                 className="w-14 font-bold text-lg outline-none border rounded px-2 text-[#212121]"
               />
               <select
-                name="travelClass"
                 value={formData.travelClass}
                 onChange={(e) =>
                   setFormData({ ...formData, travelClass: e.target.value })
@@ -253,28 +253,6 @@ const Flightbookform = () => {
               SEARCH
             </button>
           </div>
-        </div>
-
-        {/* Special Fares */}
-        <div className="flex flex-col lg:flex-row flex-wrap gap-6 mt-6 text-[#fff]">
-          <p className="font-semibold text-lg">Special Fares (Optional):</p>
-          {["Defence Forces", "Students", "Senior Citizens", "Doctors Nurses"].map(
-            (fare, idx) => (
-              <label key={idx} className="flex items-center gap-2 text-md">
-                <input
-                  type="radio"
-                  name="specialFare"
-                  value={fare}
-                  checked={formData.specialFare === fare}
-                  onChange={(e) =>
-                    setFormData({ ...formData, specialFare: e.target.value })
-                  }
-                  className="accent-[#A8E6A1] size-4"
-                />
-                {fare}
-              </label>
-            )
-          )}
         </div>
       </form>
     </div>

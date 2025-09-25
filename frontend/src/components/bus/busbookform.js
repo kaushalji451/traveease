@@ -35,7 +35,7 @@ const Busbookform = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-[#A8E6A1] via-[#BFF5B2] to-[#D4F8C4] flex justify-center items-center p-4 md:p-8">
+    <div className="bg-gradient-to-b from-[#6DAA5C] via-[#7FBF6D] to-[#98D487] flex justify-center items-center p-4 md:p-8">
       <form
         onSubmit={handleSubmit}
         className=" p-6 md:p-10 max-w-5xl w-full"

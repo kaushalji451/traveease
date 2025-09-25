@@ -102,7 +102,7 @@ const HotelBookingForm = () => {
     } Guests`;
 
   return (
-    <div className="w-full min-h-[240px] flex flex-col items-center justify-center bg-gradient-to-b from-[#A8E6A1] via-[#BFF5B2] to-[#D4F8C4] py-10">
+    <div className="w-full min-h-[240px] flex flex-col items-center justify-center bg-gradient-to-b from-[#6DAA5C] via-[#7FBF6D] to-[#98D487] py-10">
       {/* Header */}
       <div className="w-full max-w-7xl flex flex-col md:flex-row justify-end pt-8 pb-4 px-4 md:px-0">
         <span className="text-white text-lg md:text-2xl font-bold text-center md:text-right">

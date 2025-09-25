@@ -11,11 +11,11 @@ import Link from "next/link";
 import Image from "next/image";
 
 const navItems = [
-  { icon: <BiSolidPlaneAlt />, label: "Flights", link: "/" },
+  { icon: <BiSolidPlaneAlt />, label: "Flights", link: "/flight" },
   { icon: <MdHotel />, label: "Hotels", link: "/hotel" },
   { icon: <IoMdTrain />, label: "Trains", link: "/train" },
   { icon: <FaBus />, label: "Bus", link: "/bus" },
-  { icon: <FaUmbrellaBeach />, label: "Holiday", link: "/holiday" },
+  { icon: <FaUmbrellaBeach />, label: "Holiday", link: "/" },
   { icon: <IoIosMore />, label: "More", link: "#" },
 ];
 
@@ -33,7 +33,7 @@ const Navbar = () => {
           width={80}
           height={50}
         />
-        <Link href={"/"} className="text-2xl font-bold tracking-wide text-[#A8E6A1]">
+        <Link href={"/"} className="text-2xl font-bold tracking-wide text-[#6DAA5C]">
           RudrabhishekTravels
         </Link>
        </div>
@@ -56,7 +56,7 @@ const Navbar = () => {
 
         {/* User Section (Desktop Only) */}
         <Link href={"/profile"} className="hidden md:flex px-3 py-2 gap-2 
-        items-center justify-center min-w-20 rounded-xl text-white bg-[#A8E6A1]  cursor-pointer shadow-sm hover:shadow-md">
+        items-center justify-center min-w-20 rounded-xl text-white bg-gradient-to-b from-[#6DAA5C] via-[#7FBF6D] to-[#98D487]  cursor-pointer shadow-sm hover:shadow-md">
           <FaCircleUser className="text-xl" />
           <h1 className="font-medium">Hi</h1>
         </Link>
@@ -99,7 +99,7 @@ const Navbar = () => {
         </ul>
 
         {/* User Section inside Sidebar */}
-        <Link href={"/profile"} className="mt-10 mx-6 p-4 flex items-center gap-3 rounded-xl bg-[#A8E6A1] text-white cursor-pointer">
+        <Link href={"/profile"} className="mt-10 mx-6 p-4 flex items-center gap-3 rounded-xl bg-gradient-to-b from-[#6DAA5C] via-[#7FBF6D] to-[#98D487] text-white cursor-pointer">
           <FaCircleUser className="text-2xl" />
           <h1 className="font-medium">Hi</h1>
         </Link>
