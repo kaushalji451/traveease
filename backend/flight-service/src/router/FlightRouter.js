@@ -23,7 +23,6 @@ FlightRouter.get('/search', async (req, res) => {
         returnDate, //'2025-12-05'
     } = req.query;
 
-
     try {
 
         const token = await getAccessToken();
@@ -61,3 +60,6 @@ FlightRouter.get('/search', async (req, res) => {
 });
 
 export default FlightRouter;
+
+
+
