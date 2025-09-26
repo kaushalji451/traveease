@@ -3,13 +3,13 @@ import React from "react";
 
 const DateSelector = ({ dates, selectedDate, onDateSelect }) => {
   return (
-    <div className="flex gap-2 overflow-x-auto mb-6 bg-white rounded-lg shadow px-2 py-2">
+    <div className="flex gap-2 overflow-x-auto mb-6   justify-center rounded-lg shadow px-2 py-2">
       {dates.map((dateStr) => (
         <button
           key={dateStr}
           className={`px-3 py-1 rounded font-semibold border ${
             selectedDate === dateStr
-              ? "bg-blue-600 text-white border-blue-600"
+              ? "bg-[#6DAA5C]/50 text-[#fff] border-[#6DAA5C]/80"
               : "bg-white border-gray-400 text-gray-700 hover:bg-blue-50"
           }`}
           onClick={() => onDateSelect(dateStr)}

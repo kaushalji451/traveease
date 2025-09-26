@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useEffect, useState, useMemo } from "react";
 import FiltersSidebar from "@/components/flight/resultpage/FiltersSidebar";
@@ -19,7 +18,6 @@ export default function FlightSearchPage() {
   const [expandedId, setExpandedId] = useState(null);
   const [showMobileSidebar, setShowMobileSidebar] = useState(false);
 
-  // Filters
   const [filters, setFilters] = useState({
     airlines: [],
     price: [0, 10000],
@@ -29,163 +27,81 @@ export default function FlightSearchPage() {
     nonStopOnly: false,
   });
 
-  // Dates
   const [dates, setDates] = useState([]);
   const [selectedDate, setSelectedDate] = useState("");
 
-  // Helpers
   const formatTime = (time) =>
     new Date(time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   const formatDate = (time) => new Date(time).toISOString().split("T")[0];
 
-  // Dummy data for testing
-  const dummyResponse = {
-    data: [
-      {
-        id: "1",
-        price: { total: "4500", currency: "INR", grandTotal: "4800", base: "4000", fees: [] },
-        validatingAirlineCodes: ["AI"],
-        itineraries: [
-          {
-            duration: "PT2H30M",
-            segments: [
-              {
-                number: "123",
-                carrierCode: "AI",
-                departure: { at: "2025-09-30T09:00:00", iataCode: "DEL", terminal: "3" },
-                arrival: { at: "2025-09-30T11:30:00", iataCode: "BOM", terminal: "2" },
-                aircraft: { code: "320" },
-                numberOfStops: 0,
-              },
-            ],
-          },
-        ],
-        travelerPricings: [
-          {
-            travelerType: "ADULT",
-            cabin: "ECONOMY",
-            class: "Y",
-            brandedFareLabel: "Saver",
-            fareDetailsBySegment: [
-              {
-                includedCheckedBags: { weight: 15, weightUnit: "KG" },
-                amenities: [{ description: "Meal", isChargeable: false }],
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: "2",
-        price: { total: "6500", currency: "INR", grandTotal: "6800", base: "6000", fees: [] },
-        validatingAirlineCodes: ["UK"],
-        itineraries: [
-          {
-            duration: "PT2H10M",
-            segments: [
-              {
-                number: "456",
-                carrierCode: "UK",
-                departure: { at: "2025-09-30T14:00:00", iataCode: "DEL", terminal: "3" },
-                arrival: { at: "2025-09-30T16:10:00", iataCode: "BOM", terminal: "2" },
-                aircraft: { code: "321" },
-                numberOfStops: 0,
-              },
-            ],
-          },
-        ],
-        travelerPricings: [
-          {
-            travelerType: "ADULT",
-            cabin: "ECONOMY",
-            class: "Y",
-            brandedFareLabel: "Flex",
-            fareDetailsBySegment: [
-              {
-                includedCheckedBags: { weight: 20, weightUnit: "KG" },
-                amenities: [
-                  { description: "Meal", isChargeable: false },
-                  { description: "Wi-Fi", isChargeable: true },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-    dictionaries: {
-      carriers: { AI: "Air India", UK: "Vistara" },
-      aircraft: { "320": "Airbus A320", "321": "Airbus A321" },
-    },
-  };
+  // --- Initialize date range and default selected date from query param ---
+  useEffect(() => {
+    const dateFromQuery = searchParams.get("date");
+    if (!dateFromQuery) {
+      router.push("/");
+      return;
+    }
 
-  // Simulate API fetch with dummy data
+    const range = [];
+    const base = new Date(dateFromQuery);
+    for (let i = -3; i <= 3; i++) {
+      const d = new Date(base);
+      d.setDate(d.getDate() + i);
+      range.push(formatDate(d));
+    }
+    setDates(range);
+    setSelectedDate(dateFromQuery);
+  }, [searchParams, router]);
+
+  // --- Fetch flights whenever selectedDate changes ---
   useEffect(() => {
     const fetchData = async () => {
-      // --- Original backend call (commented out for testing) ---
-      // const from = searchParams.get("from");
-      // const to = searchParams.get("to");
-      // const date = searchParams.get("date");
-      // const returnDate = searchParams.get("returnDate");
-      // const adults = searchParams.get("adults");
-      // const travelClass = searchParams.get("class");
+      const from = searchParams.get("from");
+      const to = searchParams.get("to");
+      const returnDate = searchParams.get("returnDate");
+      const adults = searchParams.get("adults");
+      const travelClass = searchParams.get("class");
 
-      // if (!from || !to || !date) {
-      //   router.push("/");
-      //   return;
-      // }
+      if (!from || !to || !selectedDate) return;
 
-      // try {
-      //   setLoading(true);
-      //   const res = await fetch(
-      //     `http://localhost:5000/search?from=${from}&to=${to}&date=${date}&returnDate=${returnDate || ""}&adults=${adults}&class=${travelClass}`
-      //   );
-      //   const json = await res.json();
-      //   setData(json.data || []);
-      //   setDictionaries(json.dictionaries);
-      // } catch (err) {
-      //   console.error(err);
-      // } finally {
-      //   setLoading(false);
-      // }
-
-      // --- Dummy data instead of backend ---
-      setLoading(true);
-      await new Promise((res) => setTimeout(res, 500)); // simulate delay
-      setData(dummyResponse.data);
-      setDictionaries(dummyResponse.dictionaries);
-
-      // Date selector range
-      const firstDepart = dummyResponse.data[0].itineraries?.[0]?.segments?.[0]?.departure?.at;
-      const defaultDate = formatDate(firstDepart);
-      const range = [];
-      const base = new Date(defaultDate);
-      for (let i = -3; i <= 3; i++) {
-        const d = new Date(base);
-        d.setDate(d.getDate() + i);
-        range.push(formatDate(d));
+      try {
+        setLoading(true);
+        const res = await fetch(
+          `http://localhost:5000/search?from=${from}&to=${to}&date=${selectedDate}&returnDate=${returnDate || ""}&adults=${adults}&class=${travelClass}`
+        );
+        const json = await res.json();
+        setData(json.data || []);
+        setDictionaries(json.dictionaries || {});
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
       }
-      setDates(range);
-      setSelectedDate(defaultDate);
-
-      setLoading(false);
     };
 
     fetchData();
-  }, [searchParams, router]);
+  }, [selectedDate, searchParams]);
 
-  // Handlers
+  // --- Handler to update selected date AND URL query param ---
+  const handleDateSelect = (date) => {
+    setSelectedDate(date);
+
+    // Update URL query param without page reload
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("date", date);
+    router.push(`${window.location.pathname}?${params.toString()}`, { scroll: false });
+  };
+
+  // --- Handlers ---
   const handleFilterChange = (key, value) => setFilters((prev) => ({ ...prev, [key]: value }));
-
   const handleSidebarCheckbox = (key, value, checked) =>
     setFilters((prev) => ({
       ...prev,
       [key]: checked ? [...prev[key], value] : prev[key].filter((v) => v !== value),
     }));
-
   const handlePriceChange = (min, max) => setFilters((prev) => ({ ...prev, price: [min, max] }));
 
-  // Apply filters
+  // --- Filters ---
   const filteredData = useMemo(() => {
     return data.filter((offer) => {
       const seg = offer.itineraries[0].segments[0];
@@ -216,7 +132,7 @@ export default function FlightSearchPage() {
     });
   }, [data, filters]);
 
-  // Sorting
+  // --- Sorting ---
   const sortedData = useMemo(() => {
     const sorted = [...filteredData];
     if (activeSort === "cheapest") sorted.sort((a, b) => Number(a.price.total) - Number(b.price.total));
@@ -224,7 +140,7 @@ export default function FlightSearchPage() {
     return sorted;
   }, [filteredData, activeSort]);
 
-  // Options for filters
+  // --- Filter options ---
   const airlineOptions = dictionaries.carriers
     ? Object.entries(dictionaries.carriers).map(([code, name]) => ({ code, name }))
     : [];
@@ -233,9 +149,8 @@ export default function FlightSearchPage() {
     : [];
 
   return (
-    <div className="flex">
-      {/* Sidebar */}
-      <div className={`lg:w-1/4 ${showMobileSidebar ? "block" : "hidden lg:block"}`}>
+    <div className="flex mt-4 justify-center">
+      <div className={`lg:w-1/6  ${showMobileSidebar ? "block" : "hidden lg:block"}`}>
         <FiltersSidebar
           filters={filters}
           airlineOptions={airlineOptions}
@@ -248,16 +163,15 @@ export default function FlightSearchPage() {
         />
       </div>
 
-      {/* Main content */}
-      <div className="lg:w-3/4 w-full p-6">
+      <div className="lg:w-2/3 w-full p-6">
         <button
-          className="lg:hidden mb-4 px-4 py-2 bg-blue-600 text-white rounded shadow"
+          className="lg:hidden mb-4 px-4 py-2 bg-[#6DAA5C] text-white rounded shadow"
           onClick={() => setShowMobileSidebar(true)}
         >
           Filters
         </button>
 
-        <DateSelector dates={dates} selectedDate={selectedDate} onDateSelect={setSelectedDate} />
+        <DateSelector dates={dates} selectedDate={selectedDate} onDateSelect={handleDateSelect} />
 
         <SortTabs activeSort={activeSort} setActiveSort={setActiveSort} />
 
@@ -273,3 +187,95 @@ export default function FlightSearchPage() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+  // Dummy data for testing
+  // const dummyResponse = {
+  //   data: [
+  //     {
+  //       id: "1",
+  //       price: { total: "4500", currency: "INR", grandTotal: "4800", base: "4000", fees: [] },
+  //       validatingAirlineCodes: ["AI"],
+  //       itineraries: [
+  //         {
+  //           duration: "PT2H30M",
+  //           segments: [
+  //             {
+  //               number: "123",
+  //               carrierCode: "AI",
+  //               departure: { at: "2025-09-30T09:00:00", iataCode: "DEL", terminal: "3" },
+  //               arrival: { at: "2025-09-30T11:30:00", iataCode: "BOM", terminal: "2" },
+  //               aircraft: { code: "320" },
+  //               numberOfStops: 0,
+  //             },
+  //           ],
+  //         },
+  //       ],
+  //       travelerPricings: [
+  //         {
+  //           travelerType: "ADULT",
+  //           cabin: "ECONOMY",
+  //           class: "Y",
+  //           brandedFareLabel: "Saver",
+  //           fareDetailsBySegment: [
+  //             {
+  //               includedCheckedBags: { weight: 15, weightUnit: "KG" },
+  //               amenities: [{ description: "Meal", isChargeable: false }],
+  //             },
+  //           ],
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       id: "2",
+  //       price: { total: "6500", currency: "INR", grandTotal: "6800", base: "6000", fees: [] },
+  //       validatingAirlineCodes: ["UK"],
+  //       itineraries: [
+  //         {
+  //           duration: "PT2H10M",
+  //           segments: [
+  //             {
+  //               number: "456",
+  //               carrierCode: "UK",
+  //               departure: { at: "2025-09-30T14:00:00", iataCode: "DEL", terminal: "3" },
+  //               arrival: { at: "2025-09-30T16:10:00", iataCode: "BOM", terminal: "2" },
+  //               aircraft: { code: "321" },
+  //               numberOfStops: 0,
+  //             },
+  //           ],
+  //         },
+  //       ],
+  //       travelerPricings: [
+  //         {
+  //           travelerType: "ADULT",
+  //           cabin: "ECONOMY",
+  //           class: "Y",
+  //           brandedFareLabel: "Flex",
+  //           fareDetailsBySegment: [
+  //             {
+  //               includedCheckedBags: { weight: 20, weightUnit: "KG" },
+  //               amenities: [
+  //                 { description: "Meal", isChargeable: false },
+  //                 { description: "Wi-Fi", isChargeable: true },
+  //               ],
+  //             },
+  //           ],
+  //         },
+  //       ],
+  //     },
+  //   ],
+  //   dictionaries: {
+  //     carriers: { AI: "Air India", UK: "Vistara" },
+  //     aircraft: { "320": "Airbus A320", "321": "Airbus A321" },
+  //   },
+  // };

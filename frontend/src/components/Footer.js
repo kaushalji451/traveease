@@ -1,129 +1,204 @@
+// "use client";
+// import React, { useState } from "react";
+// import Image from "next/image";
+
+// const Footer = () => {
+//   const [active, setActive] = useState("OUR OFFERINGS");
+
+//   const menuItems = [
+//     "OUR OFFERINGS",
+//     "QUICK LINKS",
+//     "POPULAR DESTINATION",
+//     "INTERNATIONAL DESTINATION",
+//     "POPULAR AIRLINE",
+//     "CONNECT WITH US",
+//     "OFFERS",
+//     "EMT INSIGHTS",
+//     "MEDIA",
+//     "INVESTOR RELATIONS",
+//     "CURRENT OPENINGS",
+//   ];
+
+//   const offerings = [
+//     ["Flights", "Hotels", "Trains", "Holidays"],
+//     ["Bus", "Cabs", "Flight Status", "Airlines"],
+//     ["Airports", "Travel Guides", "Check PNR Status", "EMT PRO"],
+//     ["Activities", "Travel Updates", "Corporate Travel", "Blog"],
+//     ["Flight Check-in", "VIP Cabs"],
+//   ];
+
+//   return (
+//     <footer className="bg-gradient-to-b from-black via-gray-900 to-gray-800 text-white">
+//       {/* Top Section */}
+//       <div className="flex flex-col md:flex-row border-b border-white/20 p-6">
+//         {/* Sidebar / Menu */}
+//         <div className="md:w-64 md:border-r border-gray-700 md:pr-4">
+//           {/* Desktop (Sidebar) */}
+//           <ul className="hidden md:block">
+//             {menuItems.map((item) => (
+//               <li
+//                 key={item}
+//                 onClick={() => setActive(item)}
+//                 className={`cursor-pointer py-2 px-3 text-sm border-b border-gray-700 transition
+//                   ${
+//                     active === item
+//                       ? "bg-[#6DAA5C] text-white relative"
+//                       : "text-gray-300 hover:text-white"
+//                   }`}
+//               >
+//                 {item}
+//                 {active === item && (
+//                   <span className="absolute right-0 top-0 h-full w-2 bg-[#6DAA5C]"></span>
+//                 )}
+//               </li>
+//             ))}
+//           </ul>
+
+//           {/* Mobile (Horizontal Tabs) */}
+//           <div className="md:hidden overflow-x-auto flex gap-4 pb-2 border-b border-gray-700">
+//             {menuItems.map((item) => (
+//               <button
+//                 key={item}
+//                 onClick={() => setActive(item)}
+//                 className={`whitespace-nowrap px-4 py-2 rounded-lg text-sm transition
+//                   ${
+//                     active === item
+//                       ? "bg-[#A8E6A1] text-white"
+//                       : "text-gray-300 hover:text-white"
+//                   }`}
+//               >
+//                 {item}
+//               </button>
+//             ))}
+//           </div>
+//         </div>
+
+//         {/* Content */}
+//         <div className="flex-1 md:pl-8 mt-6 md:mt-0">
+//           {active === "OUR OFFERINGS" && (
+//             <>
+//               <h2 className="text-lg font-semibold mb-4">
+//                 Make your travel easy with a wide range of products and services.
+//               </h2>
+//               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 text-sm">
+//                 {offerings.map((col, idx) => (
+//                   <div key={idx} className="flex flex-col space-y-2">
+//                     {col.map((link) => (
+//                       <span
+//                         key={link}
+//                         className="hover:text-[#6DAA5C] cursor-pointer flex items-center gap-2"
+//                       >
+//                         {link}
+//                       </span>
+//                     ))}
+//                   </div>
+//                 ))}
+//               </div>
+//             </>
+//           )}
+//         </div>
+//       </div>
+
+//       {/* Middle Branding Section */}
+//       <div className="border-b border-white/10 px-6 md:px-10 py-6 text-center md:text-left">
+//         <div className="flex items-center md:text-4xl font-bold py-2 text-[#6DAA5C]">
+//           <Image 
+//             src={"/logo1.png"}
+//             alt="logo"
+//             width={80}
+//             height={50}
+//           />
+//           <span className="text-2xl">RudrabhishekTravels</span>
+//         </div>
+//         <p className="text-sm md:text-base md:w-2/3 mx-auto md:mx-0 text-gray-300">
+//           RudrabhishekTravels offers  &apos;End to End&apos; travel solutions including air tickets
+//           for more than 400 international and domestic airlines, hotel bookings
+//           for nearly 1 million hotels in India and abroad, cab booking with
+//           4000+ cab operators, bus tickets with 2000+ bus operators, and railway
+//           tickets in India for all major cities.
+//         </p>
+//       </div>
+
+//       {/* Bottom Section */}
+//       <div className="py-4 text-center text-xs md:text-sm text-white/50">
+//         <p>
+//           Copyright © {new Date().getFullYear()} RudrabhishekTravels. All
+//           Rights Reserved.
+//         </p>
+//       </div>
+//     </footer>
+//   );
+// };
+
+// export default Footer;
+
+
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
-  const [active, setActive] = useState("OUR OFFERINGS");
-
-  const menuItems = [
-    "OUR OFFERINGS",
-    "QUICK LINKS",
-    "POPULAR DESTINATION",
-    "INTERNATIONAL DESTINATION",
-    "POPULAR AIRLINE",
-    "CONNECT WITH US",
-    "OFFERS",
-    "EMT INSIGHTS",
-    "MEDIA",
-    "INVESTOR RELATIONS",
-    "CURRENT OPENINGS",
-  ];
-
-  const offerings = [
-    ["Flights", "Hotels", "Trains", "Holidays"],
-    ["Bus", "Cabs", "Flight Status", "Airlines"],
-    ["Airports", "Travel Guides", "Check PNR Status", "EMT PRO"],
-    ["Activities", "Travel Updates", "Corporate Travel", "Blog"],
-    ["Flight Check-in", "VIP Cabs"],
-  ];
-
   return (
     <footer className="bg-gradient-to-b from-black via-gray-900 to-gray-800 text-white">
       {/* Top Section */}
-      <div className="flex flex-col md:flex-row border-b border-white/20 p-6">
-        {/* Sidebar / Menu */}
-        <div className="md:w-64 md:border-r border-gray-700 md:pr-4">
-          {/* Desktop (Sidebar) */}
-          <ul className="hidden md:block">
-            {menuItems.map((item) => (
-              <li
-                key={item}
-                onClick={() => setActive(item)}
-                className={`cursor-pointer py-2 px-3 text-sm border-b border-gray-700 transition
-                  ${
-                    active === item
-                      ? "bg-[#6DAA5C] text-white relative"
-                      : "text-gray-300 hover:text-white"
-                  }`}
-              >
-                {item}
-                {active === item && (
-                  <span className="absolute right-0 top-0 h-full w-2 bg-[#6DAA5C]"></span>
-                )}
-              </li>
-            ))}
-          </ul>
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 px-6 md:px-12 py-12">
+        {/* Brand / About */}
+        <div className="md:w-1/3">
+          <div className="flex items-center gap-3 mb-3">
+            <Image src="/logo1.png" alt="logo" width={60} height={40} />
+            <span className="text-2xl font-bold text-[#6DAA5C]">
+              RudrabhishekTravels
+            </span>
+          </div>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            Offering end-to-end travel solutions including flights, hotels,
+            trains, cabs, buses, and holiday packages. Travel with ease and
+            comfort at the best prices.
+          </p>
+        </div>
 
-          {/* Mobile (Horizontal Tabs) */}
-          <div className="md:hidden overflow-x-auto flex gap-4 pb-2 border-b border-gray-700">
-            {menuItems.map((item) => (
-              <button
-                key={item}
-                onClick={() => setActive(item)}
-                className={`whitespace-nowrap px-4 py-2 rounded-lg text-sm transition
-                  ${
-                    active === item
-                      ? "bg-[#A8E6A1] text-white"
-                      : "text-gray-300 hover:text-white"
-                  }`}
-              >
-                {item}
-              </button>
-            ))}
+        {/* Links Section (Quick Links + Destinations + Connect) */}
+        <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-8">
+          {/* Quick Links */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4 text-[#6DAA5C]">Quick Links</h3>
+            <ul className="space-y-2 text-sm text-gray-300">
+              <li className="hover:text-[#6DAA5C] cursor-pointer">Flights</li>
+              <li className="hover:text-[#6DAA5C] cursor-pointer">Hotels</li>
+              <li className="hover:text-[#6DAA5C] cursor-pointer">Trains</li>
+              <li className="hover:text-[#6DAA5C] cursor-pointer">Holiday Packages</li>
+            </ul>
+          </div>
+
+          {/* Popular Destinations */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4 text-[#6DAA5C]">Popular Destinations</h3>
+            <ul className="space-y-2 text-sm text-gray-300">
+              <li className="hover:text-[#6DAA5C] cursor-pointer">Goa</li>
+              <li className="hover:text-[#6DAA5C] cursor-pointer">Jaipur</li>
+              <li className="hover:text-[#6DAA5C] cursor-pointer">Shimla</li>
+              <li className="hover:text-[#6DAA5C] cursor-pointer">Kerala</li>
+            </ul>
+          </div>
+
+          {/* Connect With Us */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4 text-[#6DAA5C]">Connect With Us</h3>
+            <div className="flex gap-4 text-xl text-gray-400">
+              <FaFacebook className="hover:text-[#6DAA5C] cursor-pointer" />
+              <FaTwitter className="hover:text-[#6DAA5C] cursor-pointer" />
+              <FaInstagram className="hover:text-[#6DAA5C] cursor-pointer" />
+              <FaLinkedin className="hover:text-[#6DAA5C] cursor-pointer" />
+            </div>
           </div>
         </div>
-
-        {/* Content */}
-        <div className="flex-1 md:pl-8 mt-6 md:mt-0">
-          {active === "OUR OFFERINGS" && (
-            <>
-              <h2 className="text-lg font-semibold mb-4">
-                Make your travel easy with a wide range of products and services.
-              </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 text-sm">
-                {offerings.map((col, idx) => (
-                  <div key={idx} className="flex flex-col space-y-2">
-                    {col.map((link) => (
-                      <span
-                        key={link}
-                        className="hover:text-[#6DAA5C] cursor-pointer flex items-center gap-2"
-                      >
-                        {link}
-                      </span>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
-        </div>
-      </div>
-
-      {/* Middle Branding Section */}
-      <div className="border-b border-white/10 px-6 md:px-10 py-6 text-center md:text-left">
-        <div className="flex items-center md:text-4xl font-bold py-2 text-[#6DAA5C]">
-          <Image 
-            src={"/logo1.png"}
-            alt="logo"
-            width={80}
-            height={50}
-          />
-          <span className="text-2xl">RudrabhishekTravels</span>
-        </div>
-        <p className="text-sm md:text-base md:w-2/3 mx-auto md:mx-0 text-gray-300">
-          RudrabhishekTravels offers  &apos;End to End&apos; travel solutions including air tickets
-          for more than 400 international and domestic airlines, hotel bookings
-          for nearly 1 million hotels in India and abroad, cab booking with
-          4000+ cab operators, bus tickets with 2000+ bus operators, and railway
-          tickets in India for all major cities.
-        </p>
       </div>
 
       {/* Bottom Section */}
-      <div className="py-4 text-center text-xs md:text-sm text-white/50">
+      <div className="border-t border-white/10 py-4 text-center text-xs md:text-sm text-white/50">
         <p>
-          Copyright © {new Date().getFullYear()} RudrabhishekTravels. All
-          Rights Reserved.
+          © {new Date().getFullYear()} RudrabhishekTravels. All Rights Reserved.
         </p>
       </div>
     </footer>

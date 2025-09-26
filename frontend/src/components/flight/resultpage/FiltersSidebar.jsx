@@ -13,7 +13,7 @@ const FiltersSidebar = ({
 }) => {
   return (
     <aside
-      className={`bg-white shadow-lg rounded-lg  w-full px-4 py-5 ${
+      className={`bg-white border border-slate-300 shadow-lg rounded-lg  w-full px-4 py-5 ${
         showMobileSidebar
           ? "fixed inset-0 z-40 bg-white"
           : "lg:relative lg:translate-x-0"

@@ -10,7 +10,7 @@ const SortTabs = ({ activeSort, setActiveSort }) => {
           key={tab}
           className={`px-4 py-2 rounded border font-semibold transition ${
             activeSort === tab
-              ? "bg-blue-600 text-white border-blue-600"
+              ? "bg-[#6DAA5C]/50 text-[#fff] border-[#6DAA5C]/80"
               : "bg-white border-gray-300 text-gray-700 hover:bg-blue-50"
           }`}
           onClick={() => setActiveSort(tab)}

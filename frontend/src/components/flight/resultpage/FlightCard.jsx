@@ -16,10 +16,10 @@ const FlightCard = ({
       key={offer.id}
       className="bg-white rounded-xl shadow-lg p-6 mb-6 transition hover:shadow-2xl"
     >
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col md:flex-row md:items-center  md:justify-between">
         {/* Airline Info */}
-        <div className="flex items-center mb-4 md:mb-0">
-          <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-3 text-xl font-bold text-blue-700">
+        <div className="flex items-center mb-4 md:mb-0 ">
+          <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-3  text-xl font-bold text-blue-700">
             {seg.carrierCode}
           </div>
           <div>
@@ -35,42 +35,48 @@ const FlightCard = ({
           </div>
         </div>
 
-        {/* Depart / Duration / Arrive */}
-        <div className="flex flex-col md:flex-row md:items-center flex-1 gap-6 justify-center md:justify-start">
+        {/* Depart / Duration / Arrive / Price */}
+        <div className="flex md:items-center flex-1 mb-4  justify-around">
           <div>
-            <div className="text-xl font-bold">{formatTime(seg.departure.at)}</div>
-            <div className="text-sm text-gray-500">
-              {seg.departure.iataCode} Terminal {seg.departure.terminal}
+            <div className="text-xl max-sm:text-sm  font-bold">{formatTime(seg.departure.at)}</div>
+            <div className="text-sm  max-sm:text-xs text-center text-gray-500">
+              {seg.departure.iataCode}
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <div className="text-sm font-bold text-gray-600">
-              {offer.itineraries[0].duration.replace("PT", "")} <span className="mx-1">&middot;</span>{" "}
-              {seg.numberOfStops === 0 ? "Non-stop" : `${seg.numberOfStops} stop(s)`}
+            <div className="text-sm max-sm:text-xs font-bold text-gray-600">
+              <p className="border-b text-center pb-1 ">{offer.itineraries[0].duration.replace("PT", "")}</p>
+              <p className="text-center">{seg.numberOfStops === 0 ? "Non-stop" : `${seg.numberOfStops} stop(s)`}</p>
             </div>
           </div>
           <div>
-            <div className="text-xl font-bold">{formatTime(seg.arrival.at)}</div>
-            <div className="text-sm text-gray-500">
-              {seg.arrival.iataCode} Terminal {seg.arrival.terminal}
+            <div className="text-xl max-sm:text-sm text-center font-bold">{formatTime(seg.arrival.at)}</div>
+            <div className="text-sm max-sm:text-xs text-center text-gray-500">
+              {seg.arrival.iataCode}
             </div>
+
+          </div>
+          <div className="text-2xl hidden md:block font-bold text-black ">
+            {offer.price.total} {offer.price.currency}
           </div>
         </div>
 
-        {/* Price & Buttons */}
-        <div className="flex flex-col items-end">
-          <div className="text-2xl font-bold text-blue-700">
+        {/* Buttons / price */}
+        <div className="flex   justify-around items-center">
+          <div className="text-2xl font-bold text-black block md:hidden">
             {offer.price.total} {offer.price.currency}
           </div>
-          <button className="px-4 py-2 mt-2 bg-blue-600 text-white rounded-lg font-semibold shadow hover:bg-blue-700">
-            Book Now
-          </button>
-          <button
-            className="mt-2 text-xs text-blue-600 hover:underline"
-            onClick={() => setExpandedId(expandedId === offer.id ? null : offer.id)}
-          >
-            {expandedId === offer.id ? "Hide Details" : "View Details"}
-          </button>
+          <div className="flex flex-col">
+            <button className="px-4 py-2 mt-2 bg-[#6DAA5C] text-white rounded-lg font-semibold shadow hover:bg-[#6DAA5C]">
+              Book Now
+            </button>
+            <button
+              className="mt-2 text-xs text-[#6DAA5C] hover:underline"
+              onClick={() => setExpandedId(expandedId === offer.id ? null : offer.id)}
+            >
+              {expandedId === offer.id ? "Hide Details" : "View Details"}
+            </button>
+          </div>
         </div>
       </div>
 
