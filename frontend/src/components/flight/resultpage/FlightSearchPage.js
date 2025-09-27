@@ -23,7 +23,7 @@ export default function FlightSearchPage() {
     price: [0, 10000],
     stops: [],
     aircraft: [],
-    departPeriod: "",
+    departPeriod: "", 
     nonStopOnly: false,
   });
 

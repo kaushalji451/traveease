@@ -15,11 +15,13 @@ HotelRouter.get("/", (req, res) => {
 
 // Search hotels endpoint
 HotelRouter.get('/search', async (req, res) => {
-    const destinationCode = req.query.destinationCode || 'DEL';
-    const checkIn = req.query.checkIn || '2025-10-01';
-    const checkOut = req.query.checkOut || '2025-10-05';
-    let occupancy = req.query.occupancy || '[{"rooms":1,"adults":2,"children":0}]';
+    const destinationCode = req.query.destinationCode; // 'DEL'
+    const checkIn = req.query.checkIn;                // '2025-10-01'
+    const checkOut = req.query.checkOut;             // '2025-10-05'
+    let occupancy = req.query.occupancy;            // '[{"rooms":1,"adults":2,"children":0}]'
     occupancy = JSON.parse(occupancy);
+
+    console.log(req.query);
 
     const { signature } = generateSignature(API_KEY, API_SECRET);
 

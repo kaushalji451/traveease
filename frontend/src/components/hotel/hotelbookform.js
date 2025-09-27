@@ -2,10 +2,12 @@
 import React, { useState, useRef } from "react";
 import { FaHotel, FaRegCalendarAlt, FaAngleDown } from "react-icons/fa";
 import IndianCityData from "./indiancitydata";
+import { useRouter } from "next/navigation";
 
 const defaultRoom = { adults: 2, children: 0 };
 
 const HotelBookingForm = () => {
+    const router = useRouter();
   const [formData, setFormData] = useState({
     location: "",
     code: "BLR", // default code
@@ -85,16 +87,30 @@ const HotelBookingForm = () => {
     }));
   };
 
+
+  // Add room number explicitly
+  const occupancy = JSON.stringify(
+    formData.rooms.map((room, idx) => ({
+      rooms: idx + 1,
+      adults: room.adults,
+      children: room.children,
+    }))
+  );
+
+ // ✅ Navigate to results page with query params
   const handleSubmit = (e) => {
     e.preventDefault();
-    const payload = {
+    const query = new URLSearchParams({
       destinationCode: formData.code,
       checkIn: formData.checkIn,
       checkOut: formData.checkOut,
-      occupancy: JSON.stringify(formData.rooms),
-    };
-    console.log("Hotel Booking Form Submitted:", payload);
+      occupancy: occupancy
+    });
+    router.push(`/HotelList?${query.toString()}`);
   };
+
+
+
 
   const roomsLabel = `${formData.rooms.length} Room${formData.rooms.length > 1 ? "s" : ""
     }, ${formData.rooms.reduce((acc, r) => acc + r.adults, 0) +
