@@ -67,7 +67,7 @@ export default function FlightSearchPage() {
       try {
         setLoading(true);
         const res = await fetch(
-          `http://localhost:5000/search?from=${from}&to=${to}&date=${selectedDate}&returnDate=${returnDate || ""}&adults=${adults}&class=${travelClass}`
+          `${process.env.NEXT_PUBLIC_FLIGHT_URL}/search?from=${from}&to=${to}&date=${selectedDate}&returnDate=${returnDate || ""}&adults=${adults}&class=${travelClass}`
         );
         const json = await res.json();
         setData(json.data || []);

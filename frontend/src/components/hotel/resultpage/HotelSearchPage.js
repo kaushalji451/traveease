@@ -9,6 +9,8 @@ function App() {
   const searchParams = useSearchParams();
 
   const [hotelsData, setHotelsData] = useState(null);
+  const [CheckIn, setCheckIn] = useState("");
+  const [CheckOut, setCheckOut] = useState("");
   const [filters, setFilters] = useState({
     price: [],
     starRatings: [],
@@ -19,31 +21,38 @@ function App() {
 
   // ✅ Backend fetch
   useEffect(() => {
-    // const fetchData = async () => {
-    //   const destinationCode = searchParams.get("destinationCode");
-    //   const checkIn = searchParams.get("checkIn");
-    //   const checkOut = searchParams.get("checkOut");
-    //   const occupancy = searchParams.get("occupancy");
+    const fetchData = async () => {
+      const destinationCode = searchParams.get("destinationCode");
+      const checkIn = searchParams.get("checkIn");
+      const checkOut = searchParams.get("checkOut");
+      const occupancy = searchParams.get("occupancy");
 
-    //   if (!destinationCode || !checkIn || !checkOut || !occupancy) return;
+      if(searchParams.get("checkIn") && searchParams.get("checkOut")){
+        setCheckIn(searchParams.get("checkIn"));
+        setCheckOut(searchParams.get("checkOut"));
+      }
+      
+      if (!destinationCode || !checkIn || !checkOut || !occupancy) return;
 
-    //   try {
-    //     const res = await fetch(
-    //       `http://localhost:5001/search?destinationCode=${destinationCode}&checkIn=${checkIn}&checkOut=${checkOut}&occupancy=${occupancy}`
-    //     );
-    //     const json = await res.json();
-    //     const hotelsArray = Array.isArray(json.hotels?.hotels) ? json.hotels.hotels : [];
-    //     setHotelsData(hotelsArray);
-    //   } catch (err) {
-    //     console.error(err);
-    //   }
-    // };
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_HOTEL_URL}/search?destinationCode=${destinationCode}&checkIn=${checkIn}&checkOut=${checkOut}&occupancy=${occupancy}`
+        );
+        const json = await res.json();
+        setCheckIn(json.hotels?.checkIn);
+        setCheckOut(json.hotels?.checkOut); 
+        const hotelsArray = Array.isArray(json.hotels?.hotels) ? json.hotels.hotels : [];
+        setHotelsData(hotelsArray);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
-    // fetchData();
+    fetchData();
 
     // ✅ Dummy Data fallback
-    const hotelsArray = Array.isArray(dummyHotelsData.hotels) ? dummyHotelsData.hotels : [];
-    setHotelsData(hotelsArray);
+    // const hotelsArray = Array.isArray(dummyHotelsData.hotels) ? dummyHotelsData.hotels : [];
+    // setHotelsData(hotelsArray);
 
   }, [searchParams]);
 
@@ -105,7 +114,7 @@ function App() {
         filtersOpen={filtersOpen}
       />
 
-      <HotelsList filteredHotels={filteredHotels} />
+      <HotelsList filteredHotels={filteredHotels} CheckIn={CheckIn} CheckOut={CheckOut}/>
     </div>
   );
 }

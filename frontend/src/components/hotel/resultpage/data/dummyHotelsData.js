@@ -37,12 +37,58 @@ export const dummyHotelsData = {
               ]
             }
           ]
+        },
+        {
+          code: "DBL.PR",
+          name: "Premium Room",
+          rooms: 1,
+          rates: [
+            {
+              adults: 2,
+              children: 0,
+              net: "200.00",
+              allotment: 4,
+              boardCode: "RO",
+              boardName: "ROOM ONLY",
+              rateKey: "premium-rate-key",
+              rateType: "BOOKABLE",
+              paymentType: "AT_WEB",
+              packaging: true,
+              offers: [{ code: "9006", name: "Premium discount", amount: "-50.00" }],
+              cancellationPolicies: [
+                { amount: "200.00", from: "2025-09-29T23:59:00+05:30" }
+              ]
+            }
+          ]
+        },
+        {
+          code: "DBL.VIP",
+          name: "VIP Room",
+          rooms: 1,
+          rates: [
+            {
+              adults: 2,
+              children: 0,
+              net: "300.00",
+              allotment: 2,
+              boardCode: "RO",
+              boardName: "ROOM ONLY",
+              rateKey: "vip-rate-key",
+              rateType: "BOOKABLE",
+              paymentType: "AT_WEB",
+              packaging: true,
+              offers: [{ code: "9007", name: "VIP discount", amount: "-70.00" }],
+              cancellationPolicies: [
+                { amount: "300.00", from: "2025-09-29T23:59:00+05:30" }
+              ]
+            }
+          ]
         }
       ],
       zoneCode: 2,
       zoneName: "Gurgaon",
     },
-     {
+    {
       categoryCode: "4EST",
       categoryName: "4 STARS",
       code: 137682,
@@ -75,11 +121,58 @@ export const dummyHotelsData = {
               ]
             }
           ]
+        },
+        {
+          code: "DBL.PR",
+          name: "Premium Room",
+          rooms: 1,
+          rates: [
+            {
+              adults: 2,
+              children: 0,
+              net: "200.00",
+              allotment: 4,
+              boardCode: "RO",
+              boardName: "ROOM ONLY",
+              rateKey: "premium-rate-key",
+              rateType: "BOOKABLE",
+              paymentType: "AT_WEB",
+              packaging: true,
+              offers: [{ code: "9006", name: "Premium discount", amount: "-50.00" }],
+              cancellationPolicies: [
+                { amount: "200.00", from: "2025-09-29T23:59:00+05:30" }
+              ]
+            }
+          ]
+        },
+        {
+          code: "DBL.VIP",
+          name: "VIP Room",
+          rooms: 1,
+          rates: [
+            {
+              adults: 2,
+              children: 0,
+              net: "300.00",
+              allotment: 2,
+              boardCode: "RO",
+              boardName: "ROOM ONLY",
+              rateKey: "vip-rate-key",
+              rateType: "BOOKABLE",
+              paymentType: "AT_WEB",
+              packaging: true,
+              offers: [{ code: "9007", name: "VIP discount", amount: "-70.00" }],
+              cancellationPolicies: [
+                { amount: "300.00", from: "2025-09-29T23:59:00+05:30" }
+              ]
+            }
+          ]
         }
       ],
       zoneCode: 2,
       zoneName: "Gurgaon",
-    }, {
+    },
+    {
       categoryCode: "4EST",
       categoryName: "4 STARS",
       code: 137685,
@@ -112,10 +205,56 @@ export const dummyHotelsData = {
               ]
             }
           ]
+        },
+        {
+          code: "DBL.PR",
+          name: "Premium Room",
+          rooms: 1,
+          rates: [
+            {
+              adults: 2,
+              children: 0,
+              net: "200.00",
+              allotment: 4,
+              boardCode: "RO",
+              boardName: "ROOM ONLY",
+              rateKey: "premium-rate-key",
+              rateType: "BOOKABLE",
+              paymentType: "AT_WEB",
+              packaging: true,
+              offers: [{ code: "9006", name: "Premium discount", amount: "-50.00" }],
+              cancellationPolicies: [
+                { amount: "200.00", from: "2025-09-29T23:59:00+05:30" }
+              ]
+            }
+          ]
+        },
+        {
+          code: "DBL.VIP",
+          name: "VIP Room",
+          rooms: 1,
+          rates: [
+            {
+              adults: 2,
+              children: 0,
+              net: "300.00",
+              allotment: 2,
+              boardCode: "RO",
+              boardName: "ROOM ONLY",
+              rateKey: "vip-rate-key",
+              rateType: "BOOKABLE",
+              paymentType: "AT_WEB",
+              packaging: true,
+              offers: [{ code: "9007", name: "VIP discount", amount: "-70.00" }],
+              cancellationPolicies: [
+                { amount: "300.00", from: "2025-09-29T23:59:00+05:30" }
+              ]
+            }
+          ]
         }
       ],
       zoneCode: 2,
       zoneName: "Gurgaon",
-    },
+    }
   ],
 };

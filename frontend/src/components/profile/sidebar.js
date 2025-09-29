@@ -1,7 +1,8 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
-import { FaUserAlt, FaTicketAlt, FaUsers, FaGift, FaWallet, FaCog, FaSignOutAlt } from "react-icons/fa";
+import { FaUserAlt, FaTicketAlt, FaUsers, FaCog, FaSignOutAlt } from "react-icons/fa";
+import { useRouter } from 'next/navigation';
 
 const menuItems = [
     {
@@ -23,24 +24,6 @@ const menuItems = [
         link: "/profile"
     },
     {
-        title: "Promo Codes",
-        description: "Refer a Friend and Earn",
-        icon: <FaGift />,
-        link: "/profile"
-    },
-    {
-        title: "Gift Cards/ Coupons",
-        description: "Check savings on your booking",
-        icon: <FaGift />,
-        link: "/profile"
-    },
-    {
-        title: "EMT Wallet",
-        description: "Check & Manage your added wallet balance",
-        icon: <FaWallet />,
-        link: "/profile"
-    },
-    {
         title: "Settings",
         description: "Manage Notification, Fare Alert and more",
         icon: <FaCog />,
@@ -55,11 +38,25 @@ const menuItems = [
 ];
 
 const Sidebar = () => {
-    const handleClick = (e, title) => {
+    const router = useRouter();
+
+    const handleClick = (e, item) => {
         // Disable navigation for "Account Information" on desktop
-        if (title === "Account Information" && window.innerWidth >= 768) {
+        if (item.title === "Account Information" && window.innerWidth >= 768) {
             e.preventDefault();
         }
+
+        // Handle logout separately
+        if (item.title === "Log Out") {
+            e.preventDefault();
+            handleLogout();
+        }
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        // If you're using some global user state, clear it here (e.g., setUser(null))
+        router.push("/");
     };
 
     return (
@@ -71,17 +68,17 @@ const Sidebar = () => {
 
             <div className='mb-5'>
                 {menuItems.map((item, index) => (
-                    <Link 
-                        key={index} 
-                        href={item.link} 
+                    <Link
+                        key={index}
+                        href={item.link}
                         className='block'
-                        onClick={(e) => handleClick(e, item.title)}
+                        onClick={(e) => handleClick(e, item)}
                     >
                         <div className={`
                             flex items-center border-b border-slate-400 cursor-pointer rounded-md
                             ${item.title === "Account Information" ? "min-md:bg-[#66BB6A]/30" : "hover:bg-[#66BB6A]/30"}
                         `}>
-                            <div className='min-w-15  flex justify-center text-xl'>
+                            <div className='min-w-15 flex justify-center text-xl'>
                                 {item.icon}
                             </div>
                             <div className='p-3'>

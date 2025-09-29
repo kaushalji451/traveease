@@ -3,6 +3,8 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 const HotelRouter = express.Router();
 import generateSignature from '../utils/GenerateSignature.js'
+import { getCache, setCache } from '../utils/RedisClient.js';
+
 dotenv.config();
 
 const API_KEY = process.env.API_KEY;
@@ -22,7 +24,7 @@ HotelRouter.get('/search', async (req, res) => {
     occupancy = JSON.parse(occupancy);
 
     console.log(req.query);
-
+    
     const { signature } = generateSignature(API_KEY, API_SECRET);
 
     const requestBody = {
@@ -37,8 +39,16 @@ HotelRouter.get('/search', async (req, res) => {
         language: 'ENG',
         limit: 5 // Number of hotels to return
     };
+    // Create a unique cache key for this query
+    const cacheKey = `hotel:${destinationCode}:${checkIn}:${checkOut}:${JSON.stringify(occupancy)}`;
 
     try {
+        // Check if cached data exists
+        const cachedData = await getCache(cacheKey);
+        if (cachedData) {
+            console.log('Cache hit! Returning cached flight data.');
+            return res.json(cachedData);
+        }
         const response = await axios.post(
             'https://api.test.hotelbeds.com/hotel-api/1.0/hotels',
             requestBody,
@@ -52,6 +62,8 @@ HotelRouter.get('/search', async (req, res) => {
             }
         );
         console.log('Hotels Response:', JSON.stringify(response.data, null, 2));
+        // Save API response to Redis cache for 1 hour
+        await setCache(cacheKey, response.data, 3600);
         res.status(200).json(response.data);
     } catch (error) {
         if (error.response) {

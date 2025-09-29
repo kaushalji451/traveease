@@ -2,6 +2,7 @@ import express from 'express';
 const router = express.Router();
 import axios from 'axios';
 import getAccessToken from '../utils/FlightApiSetup.js';
+import { getCache, setCache } from '../utils/RedisClient.js';
 
 const FlightRouter = router;
 
@@ -14,17 +15,20 @@ FlightRouter.get('/', (req, res) => {
 FlightRouter.get('/search', async (req, res) => {
     console.log("Request received at /search with query:", req.query);
 
-    const {
-        from, //'DEL'
-        to, //'BOM'
-        date, //'2025-12-01'
-        adults, //1
-        class: travelClass, //'ECONOMY'
-        returnDate, //'2025-12-05'
-    } = req.query;
+    const { from, to, date, adults, class: travelClass, returnDate } = req.query;
+
+    // Create a unique cache key for this query
+    const cacheKey = `flight:${from}:${to}:${date}:${returnDate || ''}:${adults}:${travelClass}`;
 
     try {
+        // Check if cached data exists
+        const cachedData = await getCache(cacheKey);
+        if (cachedData) {
+            console.log('Cache hit! Returning cached flight data.');
+            return res.json(cachedData);
+        }
 
+        // If no cache, call Amadeus API
         const token = await getAccessToken();
         const params = {
             originLocationCode: from,
@@ -42,11 +46,15 @@ FlightRouter.get('/search', async (req, res) => {
             'https://test.api.amadeus.com/v2/shopping/flight-offers',
             {
                 headers: { Authorization: `Bearer ${token}` },
-                params: params
+                params
             }
         );
 
         const flightData = response.data;
+
+        // Save API response to Redis cache for 1 hour
+        await setCache(cacheKey, flightData, 3600);
+
         console.log("Flight search response fetched from API");
         res.json(flightData);
 
@@ -60,6 +68,3 @@ FlightRouter.get('/search', async (req, res) => {
 });
 
 export default FlightRouter;
-
-
-

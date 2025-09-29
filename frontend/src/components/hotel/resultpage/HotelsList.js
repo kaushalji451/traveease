@@ -2,7 +2,8 @@
 import React from "react";
 import HotelCard from "./HotelCard";
 
-function HotelsList({ filteredHotels }) {
+function HotelsList({ filteredHotels,CheckIn,CheckOut }) {
+  
   return (
     <main className="flex-1 p-6 overflow-y-auto" style={{ maxHeight: "calc(100vh - 2rem)" }}>
       <h2 className="font-bold text-xl mb-6">
@@ -15,7 +16,7 @@ function HotelsList({ filteredHotels }) {
         const discount = Math.round(maxRate - minRate);
 
         return (
-          <HotelCard key={hotel.code} hotel={hotel} minRate={minRate} discount={discount} />
+          <HotelCard key={hotel.code} hotel={hotel} minRate={minRate} discount={discount} CheckIn={CheckIn} CheckOut={CheckOut} />
         );
       })}
     </main>

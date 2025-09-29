@@ -1,14 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BiSolidPlaneAlt } from "react-icons/bi";
 import { MdHotel } from "react-icons/md";
 import { IoMdTrain } from "react-icons/io";
-import { FaBus, FaUmbrellaBeach, FaCarAlt, FaRegAddressCard } from "react-icons/fa";
+import { FaBus, FaUmbrellaBeach } from "react-icons/fa";
+import { FaCircleUser } from "react-icons/fa6";
 import { IoIosMore } from "react-icons/io";
-import { FaCircleUser, FaTableTennisPaddleBall } from "react-icons/fa6";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 import Link from "next/link";
 import Image from "next/image";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const navItems = [
   { icon: <BiSolidPlaneAlt />, label: "Flights", link: "/flight" },
@@ -20,23 +22,65 @@ const navItems = [
 ];
 
 const Navbar = () => {
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [user, setUser] = useState(null); // null = not checked, {} = logged in
+
+  // Check token on mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) return setUser(null);
+
+      try {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_AUTH_URL}/verify`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log(res);
+        if (res.status === 200) {
+          setUser(res.data.user); // assume backend returns { user: {...} }
+        } else {
+          setUser(null);
+        }
+      } catch (err) {
+        if (err.response?.status === 401) {
+          // Token invalid
+          localStorage.removeItem("token");
+          setUser(null);
+        } else {
+          // Some other error (network, server down)
+          console.error(err);
+        }
+      }
+    };
+    checkAuth();
+    const handleStorageChange = (event) => {
+      if (event.key === "token") checkAuth();
+    };
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+    router.push("/");
+  };
 
   return (
-    <nav className="flex min-h-20 justify-center shadow-md bg-white">
+    <nav className="flex min-h-20 justify-center shadow-md bg-white relative">
       <div className="flex justify-between items-center w-full max-w-7xl px-5">
         {/* Logo */}
-       <div className="flex items-center">
-         <Image
-          src={"/logo1.png"}
-          alt="logo"
-          width={80}
-          height={50}
-        />
-        <Link href={"/"} className="text-2xl font-bold tracking-wide text-[#6DAA5C]">
-          RudrabhishekTravels
-        </Link>
-       </div>
+        <div className="flex items-center">
+          <Image src={"/logo1.png"} alt="logo" width={80} height={50} />
+          <Link
+            href={"/"}
+            className="text-2xl font-bold tracking-wide text-[#6DAA5C]"
+          >
+            RudrabhishekTravels
+          </Link>
+        </div>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex gap-3 h-full items-center">
@@ -54,12 +98,51 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* User Section (Desktop Only) */}
-        <Link href={"/profile"} className="hidden md:flex px-3 py-2 gap-2 
-        items-center justify-center min-w-20 rounded-xl text-white bg-gradient-to-b from-[#6DAA5C] via-[#7FBF6D] to-[#98D487]  cursor-pointer shadow-sm hover:shadow-md">
-          <FaCircleUser className="text-xl" />
-          <h1 className="font-medium">Hi</h1>
-        </Link>
+        {/* User Section (Desktop with Dropdown) */}
+        <div className="hidden md:block relative">
+          <div className="group">
+            <button className="flex items-center gap-2 px-3 py-2 rounded-xl text-white bg-gradient-to-b from-[#6DAA5C] via-[#7FBF6D] to-[#98D487] shadow-sm hover:shadow-md">
+              <FaCircleUser />
+              <h1 className="font-medium">{user ? `Hi, ${user.email}` : "Account"}</h1>
+            </button>
+
+            {/* Dropdown */}
+            <div className="absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-md opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-50">
+              {user ? (
+                <>
+                  <Link
+                    href="/profile"
+                    className="block px-4 py-2 hover:bg-gray-100 text-gray-700"
+                  >
+                    Profile
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-700"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/auth/login"
+                    className="block px-4 py-2 hover:bg-gray-100 text-gray-700"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/auth/signup"
+                    className="block px-4 py-2 hover:bg-gray-100 text-gray-700"
+                  >
+                    Signup
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+
 
         {/* Mobile Hamburger Button */}
         <button
@@ -91,6 +174,7 @@ const Navbar = () => {
               key={index}
               className="flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer 
               hover:bg-blue-100 transition"
+              onClick={() => setMobileOpen(false)}
             >
               <span className="text-xl text-[#A8E6A1]">{item.icon}</span>
               <p className="text-base font-medium">{item.label}</p>
@@ -99,10 +183,31 @@ const Navbar = () => {
         </ul>
 
         {/* User Section inside Sidebar */}
-        <Link href={"/profile"} className="mt-10 mx-6 p-4 flex items-center gap-3 rounded-xl bg-gradient-to-b from-[#6DAA5C] via-[#7FBF6D] to-[#98D487] text-white cursor-pointer">
-          <FaCircleUser className="text-2xl" />
-          <h1 className="font-medium">Hi</h1>
-        </Link>
+        <div className="mt-10 mx-6 p-4 flex flex-col gap-2 rounded-xl bg-gradient-to-b from-[#6DAA5C] via-[#7FBF6D] to-[#98D487] text-white cursor-pointer">
+          {user ? (
+            <>
+              <Link href="/profile" className="flex items-center gap-3" onClick={() => setMobileOpen(false)}>
+                <FaCircleUser className="text-2xl" />
+                <h1 className="font-medium">Profile</h1>
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="text-left px-2 py-1 hover:bg-green-600 rounded"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link href="/auth/login" className="block hover:underline" onClick={() => setMobileOpen(false)}>
+                Login
+              </Link>
+              <Link href="/auth/signup" className="block hover:underline" onClick={() => setMobileOpen(false)}>
+                Signup
+              </Link>
+            </>
+          )}
+        </div>
       </div>
     </nav>
   );

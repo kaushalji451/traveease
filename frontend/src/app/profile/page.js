@@ -7,11 +7,16 @@ import PassangerContact from '@/components/profile/passangercontact';
 import PassportDetails from '@/components/profile/PassportDetails';
 import VisaDetails from '@/components/profile/VisaDetails';
 import FrequentFlyerDetails from '@/components/profile/FrequentFlyerDetails';
-
+import { useAuth } from "@/hooks/useAuth";
 const Page = () => {
+    const { loading } = useAuth();
+
+    if (loading) return <p>Loading...</p>;
+
+
     return (
         <div className='max-w-7xl mx-auto min-h-screen mt-10 flex flex-col md:flex-row gap-10'>
-            
+
             {/* Sidebar */}
             <div className='order-2 md:order-1 w-full md:w-1/4 '>
                 <Sidebar />
