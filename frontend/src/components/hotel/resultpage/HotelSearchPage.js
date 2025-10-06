@@ -39,6 +39,7 @@ function App() {
           `${process.env.NEXT_PUBLIC_HOTEL_URL}/search?destinationCode=${destinationCode}&checkIn=${checkIn}&checkOut=${checkOut}&occupancy=${occupancy}`
         );
         const json = await res.json();
+        console.log(json);
         setCheckIn(json.hotels?.checkIn);
         setCheckOut(json.hotels?.checkOut); 
         const hotelsArray = Array.isArray(json.hotels?.hotels) ? json.hotels.hotels : [];

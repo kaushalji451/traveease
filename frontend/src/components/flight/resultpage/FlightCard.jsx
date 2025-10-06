@@ -1,6 +1,7 @@
 "use client";
-import React from "react";
+import React, { useState } from "react"; // ✅ added useState
 import FlightDetails from "./FlightDetails";
+import { useRouter } from "next/navigation";
 
 const FlightCard = ({
   offer,
@@ -10,6 +11,50 @@ const FlightCard = ({
   formatTime,
 }) => {
   const seg = offer.itineraries[0].segments[0];
+  const router = useRouter();
+  const [loading, setLoading] = useState(false); // ✅ boolean, not string
+
+  const handleClick = async () => {
+    console.log(offer);
+    setLoading(true); // ✅ start loading
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_FLIGHT_URL}/price-offer`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            flightOffer: offer,
+          }),
+        }
+      );
+
+      const data = await res.json();
+      console.log(data);
+
+      //Generate random 6-digit ID
+      const randomId = Math.floor(100000 + Math.random() * 900000);
+      const storageKey = `flight${randomId}`;
+
+      //Clear previous flight data
+      Object.keys(localStorage).forEach((key) => {
+        if (key.startsWith("flight")) {
+          localStorage.removeItem(key);
+        }
+      });
+
+      //Save the offer in localStorage with the flight ID
+      localStorage.setItem(storageKey, JSON.stringify(offer));
+
+      //Redirect with ID as query param
+      router.push(`/FlightCheckOut?id=${storageKey}`);
+    } catch (err) {
+      console.log("some error occ", err);
+      setLoading(false); // ✅ reset if error occurs
+    }
+  };
 
   return (
     <div
@@ -45,8 +90,12 @@ const FlightCard = ({
           </div>
           <div className="flex flex-col items-center">
             <div className="text-sm max-sm:text-xs font-bold text-gray-600">
-              <p className="border-b text-center pb-1 ">{offer.itineraries[0].duration.replace("PT", "")}</p>
-              <p className="text-center">{seg.numberOfStops === 0 ? "Non-stop" : `${seg.numberOfStops} stop(s)`}</p>
+              <p className="border-b text-center pb-1 ">
+                {offer.itineraries[0].duration.replace("PT", "")}
+              </p>
+              <p className="text-center">
+                {seg.numberOfStops === 0 ? "Non-stop" : `${seg.numberOfStops} stop(s)`}
+              </p>
             </div>
           </div>
           <div>
@@ -54,7 +103,6 @@ const FlightCard = ({
             <div className="text-sm max-sm:text-xs text-center text-gray-500">
               {seg.arrival.iataCode}
             </div>
-
           </div>
           <div className="text-2xl hidden md:block font-bold text-black ">
             {offer.price.total} {offer.price.currency}
@@ -62,17 +110,27 @@ const FlightCard = ({
         </div>
 
         {/* Buttons / price */}
-        <div className="flex   justify-around items-center">
+        <div className="flex justify-around items-center">
           <div className="text-2xl font-bold text-black block md:hidden">
             {offer.price.total} {offer.price.currency}
           </div>
           <div className="flex flex-col">
-            <button className="px-4 py-2 mt-2 bg-[#6DAA5C] text-white rounded-lg font-semibold shadow hover:bg-[#6DAA5C]">
-              Book Now
+            <button
+              onClick={handleClick}
+              disabled={loading} // ✅ disable when loading
+              className={`px-4 py-2 mt-2 rounded-lg font-semibold shadow ${
+                loading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-[#6DAA5C] text-white hover:bg-[#5c954f]"
+              }`}
+            >
+              {loading ? "Loading..." : "Book Now"} {/* ✅ show loading */}
             </button>
             <button
               className="mt-2 text-xs text-[#6DAA5C] hover:underline"
-              onClick={() => setExpandedId(expandedId === offer.id ? null : offer.id)}
+              onClick={() =>
+                setExpandedId(expandedId === offer.id ? null : offer.id)
+              }
             >
               {expandedId === offer.id ? "Hide Details" : "View Details"}
             </button>
@@ -82,7 +140,11 @@ const FlightCard = ({
 
       {/* Expandable Details */}
       {expandedId === offer.id && (
-        <FlightDetails offer={offer} dictionaries={dictionaries} formatTime={formatTime} />
+        <FlightDetails
+          offer={offer}
+          dictionaries={dictionaries}
+          formatTime={formatTime}
+        />
       )}
     </div>
   );

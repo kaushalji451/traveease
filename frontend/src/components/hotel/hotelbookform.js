@@ -7,12 +7,14 @@ import { useRouter } from "next/navigation";
 const defaultRoom = { adults: 2, children: 0 };
 
 const HotelBookingForm = () => {
-    const router = useRouter();
+  const router = useRouter();
+  const today = new Date().toISOString().split("T")[0];
+  const [loading, setloading] = useState(false);
   const [formData, setFormData] = useState({
     location: "",
     code: "BLR", // default code
-    checkIn: "2025-10-01",
-    checkOut: "2025-10-05",
+    checkIn: today,
+    checkOut: "",
     rooms: [{ ...defaultRoom }],
   });
 
@@ -97,15 +99,17 @@ const HotelBookingForm = () => {
     }))
   );
 
- // ✅ Navigate to results page with query params
+  // ✅ Navigate to results page with query params
   const handleSubmit = (e) => {
     e.preventDefault();
+    setloading(true);
     const query = new URLSearchParams({
       destinationCode: formData.code,
       checkIn: formData.checkIn,
       checkOut: formData.checkOut,
       occupancy: occupancy
     });
+    setloading(false);
     router.push(`/HotelList?${query.toString()}`);
   };
 
@@ -191,6 +195,7 @@ const HotelBookingForm = () => {
             name="checkIn"
             value={formData.checkIn}
             onChange={handleChange}
+            min={today}
             className="font-bold text-lg text-[#212121] outline-none border-b border-gray-300 py-1"
             required
           />
@@ -207,6 +212,7 @@ const HotelBookingForm = () => {
             name="checkOut"
             value={formData.checkOut}
             onChange={handleChange}
+            min={formData.checkIn}
             className="font-bold text-lg text-[#212121] outline-none border-b border-gray-300 py-1"
             required
           />
@@ -335,10 +341,11 @@ const HotelBookingForm = () => {
         <div className="flex items-center justify-end px-4 py-4 md:py-0 md:flex-shrink-0">
           <button
             type="submit"
+            disabled={loading}
             className="w-full md:w-auto bg-[#FFD54F] hover:bg-yellow-400 text-white uppercase font-bold text-lg py-4 rounded-md shadow-md transition-all"
             style={{ minWidth: 150 }}
           >
-            SEARCH
+            {loading ? 'Loading...' : 'Search'}
           </button>
         </div>
       </form>

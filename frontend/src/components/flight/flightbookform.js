@@ -7,6 +7,7 @@ import indianAirports from "./indiaairportdata";
 const Flightbookform = () => {
   const router = useRouter();
   const [tripType, setTripType] = useState("oneway");
+  const [loading, setLoading] = useState(false); // ✅ Loading state
   const [formData, setFormData] = useState({
     from: "DEL",
     to: "BOM",
@@ -16,6 +17,9 @@ const Flightbookform = () => {
     travelClass: "ECONOMY",
     specialFare: "",
   });
+  // Get today's date in YYYY-MM-DD format
+  const today = new Date().toISOString().split("T")[0];
+
 
   const [fromQuery, setFromQuery] = useState("");
   const [toQuery, setToQuery] = useState("");
@@ -58,6 +62,7 @@ const Flightbookform = () => {
   // ✅ Navigate to results page with query params
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     const query = new URLSearchParams({
       from: formData.from,
       to: formData.to,
@@ -84,8 +89,8 @@ const Flightbookform = () => {
                 key={type}
                 onClick={() => setTripType(type)}
                 className={`px-4 py-2 rounded-full transition ${tripType !== type
-                    ? "hover:bg-[#A8E6A1] text-white"
-                    : "bg-[#93de8b] text-white"
+                  ? "hover:bg-[#A8E6A1] text-white"
+                  : "bg-[#93de8b] text-white"
                   }`}
               >
                 {type === "oneway"
@@ -113,6 +118,7 @@ const Flightbookform = () => {
                 setFromQuery(e.target.value);
                 searchAirports(e.target.value, setFromResults);
               }}
+              required
               placeholder="Enter city or airport"
               className="w-full font-bold text-lg outline-none bg-transparent text-[#212121]"
             />
@@ -160,6 +166,7 @@ const Flightbookform = () => {
                 setToQuery(e.target.value);
                 searchAirports(e.target.value, setToResults);
               }}
+              required
               placeholder="Enter city or airport"
               className="w-full font-bold text-lg outline-none bg-transparent text-[#212121]"
             />
@@ -199,6 +206,7 @@ const Flightbookform = () => {
                 setFormData({ ...formData, departure: e.target.value })
               }
               className="w-full font-bold text-lg outline-none bg-transparent text-[#212121]"
+              min={today}
               required
             />
           </div>
@@ -212,6 +220,7 @@ const Flightbookform = () => {
                   setFormData({ ...formData, returnDate: e.target.value })
                 }
                 className="w-full font-bold text-lg outline-none bg-transparent text-[#212121]"
+                min={formData.departure || today}
                 required
               />
             </div>
@@ -228,6 +237,7 @@ const Flightbookform = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, travellers: e.target.value })
                 }
+                required
                 className="w-14 font-bold text-lg outline-none border rounded px-2 text-[#212121]"
               />
               <select
@@ -235,6 +245,7 @@ const Flightbookform = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, travelClass: e.target.value })
                 }
+                required
                 className="border rounded px-2 bg-white text-[#212121]"
               >
                 <option value="ECONOMY">Economy</option>
@@ -246,12 +257,15 @@ const Flightbookform = () => {
 
           {/* Search Button */}
           <div className="w-full sm:w-auto flex justify-end mt-2 sm:mt-0">
-            <button
-              type="submit"
-              className="bg-[#FFD54F] hover:bg-yellow-400 text-[#212121] font-bold py-3 px-6 rounded-md shadow-md"
-            >
-              SEARCH
-            </button>
+           <button
+            type="submit"
+            disabled={loading} // ✅ Disable when loading
+            className={`${
+              loading ? "bg-gray-400 cursor-not-allowed" : "bg-[#FFD54F] hover:bg-yellow-400"
+            } text-[#212121] font-bold py-3 px-6 rounded-md shadow-md`}
+          >
+            {loading ? "Loading..." : "SEARCH"}
+          </button>
           </div>
         </div>
       </form>

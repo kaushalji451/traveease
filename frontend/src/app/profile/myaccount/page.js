@@ -3,9 +3,6 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Passangeform from '@/components/profile/passangeform';
 import PassangerContact from '@/components/profile/passangercontact';
-import PassportDetails from '@/components/profile/PassportDetails';
-import VisaDetails from '@/components/profile/VisaDetails';
-import FrequentFlyerDetails from '@/components/profile/FrequentFlyerDetails';
 import Link from 'next/link';
 
 const Page = () => {
@@ -31,9 +28,6 @@ const Page = () => {
             {/* Forms */}
             <Passangeform />
             <PassangerContact />
-            <PassportDetails />
-            <VisaDetails />
-            <FrequentFlyerDetails />
         </div>
     )
 }

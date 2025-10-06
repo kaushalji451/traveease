@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 function HotelCard({ hotel, minRate, discount, CheckIn, CheckOut }) {
   const router = useRouter();
-  const EUR_TO_INR = 90;
+  const EUR_TO_INR = 104;
 
   const handleViewRooms = () => {
     // Remove any previous hotel data

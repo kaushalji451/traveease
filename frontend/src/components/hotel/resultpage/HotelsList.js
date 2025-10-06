@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import HotelCard from "./HotelCard";
-
 function HotelsList({ filteredHotels,CheckIn,CheckOut }) {
   
   return (

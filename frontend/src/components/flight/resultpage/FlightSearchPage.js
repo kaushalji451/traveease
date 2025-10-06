@@ -70,6 +70,7 @@ export default function FlightSearchPage() {
           `${process.env.NEXT_PUBLIC_FLIGHT_URL}/search?from=${from}&to=${to}&date=${selectedDate}&returnDate=${returnDate || ""}&adults=${adults}&class=${travelClass}`
         );
         const json = await res.json();
+        console.log(json);
         setData(json.data || []);
         setDictionaries(json.dictionaries || {});
       } catch (err) {
@@ -187,95 +188,3 @@ export default function FlightSearchPage() {
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-  // Dummy data for testing
-  // const dummyResponse = {
-  //   data: [
-  //     {
-  //       id: "1",
-  //       price: { total: "4500", currency: "INR", grandTotal: "4800", base: "4000", fees: [] },
-  //       validatingAirlineCodes: ["AI"],
-  //       itineraries: [
-  //         {
-  //           duration: "PT2H30M",
-  //           segments: [
-  //             {
-  //               number: "123",
-  //               carrierCode: "AI",
-  //               departure: { at: "2025-09-30T09:00:00", iataCode: "DEL", terminal: "3" },
-  //               arrival: { at: "2025-09-30T11:30:00", iataCode: "BOM", terminal: "2" },
-  //               aircraft: { code: "320" },
-  //               numberOfStops: 0,
-  //             },
-  //           ],
-  //         },
-  //       ],
-  //       travelerPricings: [
-  //         {
-  //           travelerType: "ADULT",
-  //           cabin: "ECONOMY",
-  //           class: "Y",
-  //           brandedFareLabel: "Saver",
-  //           fareDetailsBySegment: [
-  //             {
-  //               includedCheckedBags: { weight: 15, weightUnit: "KG" },
-  //               amenities: [{ description: "Meal", isChargeable: false }],
-  //             },
-  //           ],
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       id: "2",
-  //       price: { total: "6500", currency: "INR", grandTotal: "6800", base: "6000", fees: [] },
-  //       validatingAirlineCodes: ["UK"],
-  //       itineraries: [
-  //         {
-  //           duration: "PT2H10M",
-  //           segments: [
-  //             {
-  //               number: "456",
-  //               carrierCode: "UK",
-  //               departure: { at: "2025-09-30T14:00:00", iataCode: "DEL", terminal: "3" },
-  //               arrival: { at: "2025-09-30T16:10:00", iataCode: "BOM", terminal: "2" },
-  //               aircraft: { code: "321" },
-  //               numberOfStops: 0,
-  //             },
-  //           ],
-  //         },
-  //       ],
-  //       travelerPricings: [
-  //         {
-  //           travelerType: "ADULT",
-  //           cabin: "ECONOMY",
-  //           class: "Y",
-  //           brandedFareLabel: "Flex",
-  //           fareDetailsBySegment: [
-  //             {
-  //               includedCheckedBags: { weight: 20, weightUnit: "KG" },
-  //               amenities: [
-  //                 { description: "Meal", isChargeable: false },
-  //                 { description: "Wi-Fi", isChargeable: true },
-  //               ],
-  //             },
-  //           ],
-  //         },
-  //       ],
-  //     },
-  //   ],
-  //   dictionaries: {
-  //     carriers: { AI: "Air India", UK: "Vistara" },
-  //     aircraft: { "320": "Airbus A320", "321": "Airbus A321" },
-  //   },
-  // };

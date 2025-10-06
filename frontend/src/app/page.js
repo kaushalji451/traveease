@@ -7,6 +7,7 @@ import Holidaywhybookus from "@/components/holiday/holidaywhybookus";
 export default function Page() {
   return (
     <div>
+
       {/* Booking Form */}
       <Holidaybookform />
       {/* Holiday Deals Section */}

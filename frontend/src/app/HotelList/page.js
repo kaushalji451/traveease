@@ -2,10 +2,10 @@
 
 import { Suspense } from "react";
 import HotelSearchPage from "@/components/hotel/resultpage/HotelSearchPage";
-
+import Loader from "@/components/Loader";
 export default function page() {
   return (
-    <Suspense fallback={<div className="p-6">Loading flights...</div>}>
+    <Suspense fallback={<Loader/>}>
       <HotelSearchPage />
     </Suspense>
   );

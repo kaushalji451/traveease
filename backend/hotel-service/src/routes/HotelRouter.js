@@ -24,7 +24,7 @@ HotelRouter.get('/search', async (req, res) => {
     occupancy = JSON.parse(occupancy);
 
     console.log(req.query);
-    
+
     const { signature } = generateSignature(API_KEY, API_SECRET);
 
     const requestBody = {
@@ -77,6 +77,98 @@ HotelRouter.get('/search', async (req, res) => {
     }
 });
 
+// 3️⃣ Create Booking
+HotelRouter.post('/create-booking', async (req, res) => {
+    try {
+        const { signature } = generateSignature(API_KEY, API_SECRET);
+        const {
+            rateKey,
+            guestDetails,
+            contact,
+            // userId
+        } = req.body;
+        console.log(guestDetails, contact, guestDetails[0].firstname, guestDetails[0].lastname);
+        const bookingData = {
+            holder: {
+                name: guestDetails[0].firstName || "Guest",
+                surname: guestDetails[0].lastName || "User",
+                email: contact?.email,
+                phoneNumber: contact?.phone
+            },
+            rooms: [
+                {
+                    rateKey,
+                    paxes: guestDetails.map((g, idx) => ({
+                        type: "AD",
+                        name: g.firstName,
+                        surname: g.lastName,
+                        roomId: idx + 1,
+                    })),
+                },
+            ],
+            clientReference: `hotel_${Date.now()}`,
+        };
+        console.log("this is booking data", bookingData);
+        const response = await axios.post(
+            "https://api.test.hotelbeds.com/hotel-api/1.0/bookings",
+            bookingData,
+            {
+                headers: {
+                    "Api-key": API_KEY,
+                    "X-Signature": signature,
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+            }
+        );
+        res.status(200).json({
+            message: "Booking created successfully",
+            bookingReference: response.data.booking?.reference,
+            data: response.data,
+        });
+    } catch (error) {
+        console.error("Booking error:", error.response?.data || error.message);
+        res.status(error.response?.status || 500).json(error.response?.data || { message: error.message });
+    }
+});
+
+// -------------------
+// 4️⃣ Get Booking by ID
+HotelRouter.get('/booking/:bookingId', async (req, res) => {
+    const { signature } = generateSignature(API_KEY, API_SECRET);
+    try {
+        const { bookingId } = req.params;
+
+        if (!bookingId) return res.status(400).json({ error: "bookingId is required" });
+
+        const response = await axios.get(
+            `https://api.test.hotelbeds.com/hotel-api/1.0/bookings/${bookingId}`,
+            {
+                headers: {
+                    'Api-key': API_KEY,
+                    'X-Signature': signature,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }
+        );
+
+        res.status(200).json({
+            message: "Booking fetched successfully",
+            data: response.data
+        });
+
+    } catch (error) {
+        console.error('Booking fetch error:', error.response?.data || error.message);
+        res.status(error.response?.status || 500).json(error.response?.data || { message: error.message });
+    }
+});
 
 
 export default HotelRouter;
+
+
+
+
+
+

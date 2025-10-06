@@ -1,6 +1,7 @@
 "use client";
-import React from "react";
+import React,{useEffect} from "react";
 import FlightCard from "./FlightCard";
+import Loader from "@/components/Loader";
 
 const FlightsList = ({
   sortedData,
@@ -10,8 +11,8 @@ const FlightsList = ({
   formatTime,
   loading,
 }) => {
-  if (loading) return <div className="text-lg text-gray-500">Loading flights...</div>;
-
+  if (loading) return <Loader/>;
+  
   return (
     <>
       {sortedData.map((offer) => (

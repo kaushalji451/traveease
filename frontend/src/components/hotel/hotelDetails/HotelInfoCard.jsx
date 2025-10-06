@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 
 function HotelInfoCard({ hotel, minRate, discount }) {
-  const EUR_TO_INR = 90;
+  const EUR_TO_INR = 104;
   const roomImages = [
     "https://images.unsplash.com/photo-1618773928121-c32242e63f39?fm=jpg&q=60&w=3000",
     "https://images.unsplash.com/photo-1618773928121-c32242e63f39?fm=jpg&q=60&w=3000",

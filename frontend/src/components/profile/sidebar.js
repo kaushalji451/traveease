@@ -1,96 +1,89 @@
 "use client";
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
 import { FaUserAlt, FaTicketAlt, FaUsers, FaCog, FaSignOutAlt } from "react-icons/fa";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 const menuItems = [
-    {
-        title: "Account Information",
-        description: "Manage your profile, bookings and more",
-        icon: <FaUserAlt />,
-        link: "/profile/myaccount"
-    },
-    {
-        title: "Your Bookings",
-        description: "Check your bookings",
-        icon: <FaTicketAlt />,
-        link: "/profile"
-    },
-    {
-        title: "Co-Travellers",
-        description: "Add or delete the respective traveler details",
-        icon: <FaUsers />,
-        link: "/profile"
-    },
-    {
-        title: "Settings",
-        description: "Manage Notification, Fare Alert and more",
-        icon: <FaCog />,
-        link: "/profile"
-    },
-    {
-        title: "Log Out",
-        description: "",
-        icon: <FaSignOutAlt />,
-        link: "/logout"
-    }
+  {
+    title: "Account Information",
+    description: "Manage your profile, bookings and more",
+    icon: <FaUserAlt />,
+  },
+  {
+    title: "Your Bookings",
+    description: "Check your bookings",
+    icon: <FaTicketAlt />,
+  },
+  {
+    title: "Co-Travellers",
+    description: "Add or delete the respective traveler details",
+    icon: <FaUsers />,
+  },
+  {
+    title: "Settings",
+    description: "Manage Notification, Fare Alert and more",
+    icon: <FaCog />,
+  },
+  {
+    title: "Log Out",
+    description: "",
+    icon: <FaSignOutAlt />,
+  },
 ];
 
-const Sidebar = () => {
-    const router = useRouter();
+const Sidebar = ({ activeTab, setActiveTab }) => {
+  const router = useRouter();
 
-    const handleClick = (e, item) => {
-        // Disable navigation for "Account Information" on desktop
-        if (item.title === "Account Information" && window.innerWidth >= 768) {
-            e.preventDefault();
-        }
+  const handleClick = (e, item) => {
+    e.preventDefault();
 
-        // Handle logout separately
-        if (item.title === "Log Out") {
-            e.preventDefault();
-            handleLogout();
-        }
-    };
+    if (item.title === "Log Out") {
+      handleLogout();
+      return;
+    }
 
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        // If you're using some global user state, clear it here (e.g., setUser(null))
-        router.push("/");
-    };
+    setActiveTab(item.title);
+  };
 
-    return (
-        <div className='w-full border border-gray-300 rounded-2xl'>
-            <div className='p-5 border-b border-slate-400 max-sm:text-center'>
-                <h1 className='text-xl font-semibold'>Mr. Smith</h1>
-                <p>Joined Since 2025</p>
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    router.push("/");
+  };
+
+  return (
+    <div className="w-full border border-gray-300 rounded-2xl">
+      <div className="p-5 border-b border-slate-400 max-sm:text-center">
+        <h1 className="text-xl font-semibold">Mr. Smith</h1>
+        <p>Joined Since 2025</p>
+      </div>
+
+      <div className="mb-5">
+        {menuItems.map((item, index) => (
+          <div
+            key={index}
+            className={`block cursor-pointer ${
+              activeTab === item.title
+                ? "bg-[#66BB6A]/30"
+                : "hover:bg-[#66BB6A]/30"
+            }`}
+            onClick={(e) => handleClick(e, item)}
+          >
+            <div className="flex items-center border-b border-slate-400 rounded-md">
+              <div className="min-w-15 flex justify-center text-xl">
+                {item.icon}
+              </div>
+              <div className="p-3">
+                <h1 className="font-semibold text-xl">{item.title}</h1>
+                {item.description && (
+                  <p className="text-sm md:text-base">{item.description}</p>
+                )}
+              </div>
             </div>
-
-            <div className='mb-5'>
-                {menuItems.map((item, index) => (
-                    <Link
-                        key={index}
-                        href={item.link}
-                        className='block'
-                        onClick={(e) => handleClick(e, item)}
-                    >
-                        <div className={`
-                            flex items-center border-b border-slate-400 cursor-pointer rounded-md
-                            ${item.title === "Account Information" ? "min-md:bg-[#66BB6A]/30" : "hover:bg-[#66BB6A]/30"}
-                        `}>
-                            <div className='min-w-15 flex justify-center text-xl'>
-                                {item.icon}
-                            </div>
-                            <div className='p-3'>
-                                <h1 className='font-semibold text-xl'>{item.title}</h1>
-                                {item.description && <p className='text-sm md:text-base'>{item.description}</p>}
-                            </div>
-                        </div>
-                    </Link>
-                ))}
-            </div>
-        </div>
-    );
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Sidebar;
