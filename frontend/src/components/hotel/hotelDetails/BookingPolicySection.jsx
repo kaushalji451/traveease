@@ -11,7 +11,7 @@ export const bookingPolicyList = [
 
 const BookingPolicySection = forwardRef((_, ref) => (
   <section ref={ref} className="mb-10">
-    <h3 className="text-xl font-semibold mb-4 border-b border-orange-600 pb-2">
+    <h3 className="text-xl font-semibold mb-4 border-b border-[#6daa5c] pb-2">
       Booking Policy
     </h3>
     <ul className="list-disc list-inside space-y-2 text-sm text-gray-700 leading-relaxed max-h-72 overflow-y-auto pr-3 border border-gray-200 rounded p-3 bg-gray-50">

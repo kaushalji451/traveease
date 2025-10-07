@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import FiltersSidebar from "./FiltersSidebar";
 import HotelsList from "./HotelsList";
-import { dummyHotelsData } from "./data/dummyHotelsData"; // ✅ Uncomment for dummy data
 
 function App() {
   const searchParams = useSearchParams();
@@ -51,9 +50,6 @@ function App() {
 
     fetchData();
 
-    // ✅ Dummy Data fallback
-    // const hotelsArray = Array.isArray(dummyHotelsData.hotels) ? dummyHotelsData.hotels : [];
-    // setHotelsData(hotelsArray);
 
   }, [searchParams]);
 

@@ -13,6 +13,8 @@ const Login = () => {
     password: "",
   });
 
+  const [loading, setLoading] = useState(false); // ✅ New loading state
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -22,25 +24,25 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // ✅ Disable button and show loading
 
     try {
-      // Send login request to backend
       const res = await axios.post(`${process.env.NEXT_PUBLIC_AUTH_URL}/auth/login`, formData);
       if (res.status === 200) {
         const token = res.data.token;
-        // Remove old token (if any)
         localStorage.removeItem("token");
-        // Save new token
         localStorage.setItem("token", token);
-        console.log("Token saved:", token);
         toast('Login Successful. Redirected to profile');
-        setTimeout(()=>{
-          router.push("/profile"); // redirect after login
-        },5000);
+
+        setTimeout(() => {
+          router.push("/profile");
+        }, 2000); // ✅ shorter delay for better UX
       }
     } catch (err) {
       console.error(err.response?.data || err.message);
       toast(err.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false); // ✅ Re-enable button after request
     }
   };
 
@@ -60,12 +62,10 @@ const Login = () => {
         transition={Bounce}
       />
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-50 via-teal-50 to-orange-50 relative overflow-hidden">
-        {/* Blurred background image */}
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center blur-sm opacity-50"></div>
 
         <div className="relative z-10 w-full max-w-md mx-4">
           <div className="bg-white rounded-2xl shadow-2xl p-8">
-            {/* Title and Subtitle */}
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-gray-800 mb-2">
                 Welcome to RudrabhishekTravels
@@ -75,9 +75,7 @@ const Login = () => {
               </p>
             </div>
 
-            {/* Form */}
             <form className="space-y-6" onSubmit={handleSubmit}>
-              {/* Email Input */}
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                   Email ID
@@ -93,7 +91,7 @@ const Login = () => {
                   required
                 />
               </div>
-              {/* Password Input */}
+
               <div>
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
                   Password
@@ -111,14 +109,19 @@ const Login = () => {
                 />
               </div>
 
-              {/* Continue with Email Button */}
+              {/* Login Button */}
               <button
-                className="w-full bg-[#6daa5c] text-white py-3 rounded-lg font-medium hover:bg-[#6cbb56] transition duration-200 shadow-md"
+                type="submit"
+                disabled={loading} // ✅ Disable during login
+                className={`w-full py-3 rounded-lg font-medium transition shadow-md ${
+                  loading
+                    ? "bg-gray-400 cursor-not-allowed opacity-60"
+                    : "bg-[#6daa5c] text-white hover:bg-[#6cbb56]"
+                }`}
               >
-                Login with Email
+                {loading ? "Logging in..." : "Login with Email"} {/* ✅ Show loading text */}
               </button>
 
-              {/* Social Buttons */}
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-gray-300"></div>
@@ -128,7 +131,6 @@ const Login = () => {
                 </div>
               </div>
 
-              {/* Google Button */}
               <GoogleLogin/>
             </form>
 
@@ -143,7 +145,6 @@ const Login = () => {
                 </Link>
               </p>
             </div>
-
           </div>
         </div>
       </div>

@@ -13,6 +13,7 @@ import AmenitiesSection from "@/components/hotel/hotelDetails/AmenitiesSection";
 import LocationSection from "@/components/hotel/hotelDetails/LocationSection";
 import BookingPolicySection, { bookingPolicyList } from "@/components/hotel/hotelDetails/BookingPolicySection";
 import GuestRatingSection from "@/components/hotel/hotelDetails/GuestRatingSection";
+import Loader from "@/components/Loader";
 
 function HotelPage() {
   const searchParams = useSearchParams();
@@ -58,7 +59,7 @@ function HotelPage() {
     setCheckOut(parsedData.CheckOut);
   }, [hotelId, router]);
 
-  if (!hotelData) return <div>Loading hotel details...</div>;
+  if (!hotelData) return <div className="h-screen"><Loader/></div>;
 
   return (
     <div className="max-w-7xl mx-auto my-6 p-4 font-sans text-gray-800 selection:bg-orange-400 selection:text-white">
@@ -80,7 +81,7 @@ function HotelPage() {
         onScroll={scrollToRef}
       />
 
-      <RoomsSection ref={roomsRef} hotel={hotelData.hotel} />
+      <RoomsSection ref={roomsRef} hotel={hotelData.hotel} CheckIn={CheckIn} CheckOut={CheckOut} />
       <OverviewSection ref={overviewRef} hotel={hotelData.hotel} />
       <AmenitiesSection ref={amenitiesRef} />
       <LocationSection ref={locationRef} hotel={hotelData.hotel} />

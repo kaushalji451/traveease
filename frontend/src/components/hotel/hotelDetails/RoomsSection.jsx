@@ -1,26 +1,30 @@
 "use client";
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
-const RoomsSection = forwardRef(({ hotel }, ref) => {
+const RoomsSection = forwardRef(({ hotel,CheckIn,CheckOut }, ref) => {
   const router = useRouter();
   const EUR_TO_INR = 104;
+  const [loadingRoom, setLoadingRoom] = useState(null); // store index of clicked room
+   
+  const handleBookNow = (room, idx) => {
+    setLoadingRoom(idx);
 
-  const handleBookNow = (room) => {
-    console.log("Selected Room Details:", room);
+    console.log("Selected Room Details:", room ,CheckIn,CheckOut);
 
     // First clear any existing "hotel*" keys
     Object.keys(localStorage).forEach((key) => {
-      if (key.startsWith("hotel")) {
+      if (key.startsWith("hotelroom")) {
         localStorage.removeItem(key);
       }
     });
 
+
     // Generate random hotel id like hotel1234
-    const randomId = `hotel${Math.floor(1000 + Math.random() * 9000)}`;
+    const randomId = `hotelroom${Math.floor(1000 + Math.random() * 9000)}`;
 
     // Save room directly with that key
-    localStorage.setItem(randomId, JSON.stringify(room));
+    localStorage.setItem(randomId, JSON.stringify({room,CheckIn,CheckOut}));
 
     // Redirect with query param
     router.push(`/HotelCheckOut/?id=${randomId}`);
@@ -74,10 +78,15 @@ const RoomsSection = forwardRef(({ hotel }, ref) => {
               {/* Book Now Button */}
               <div className="p-4 border-t border-slate-300">
                 <button
-                  onClick={() => handleBookNow(room)}
-                  className="w-full bg-[#FFD54F] hover:bg-yellow-400 text-white font-bold py-2 rounded-md transition"
+                  onClick={() => handleBookNow(room, idx)}
+                  disabled={loadingRoom === idx}
+                  className={`w-full font-bold py-2 rounded-md transition ${
+                    loadingRoom === idx
+                      ? "bg-gray-400 cursor-not-allowed text-white"
+                      : "bg-[#6daa5c] hover:bg-[#66c44b] text-white"
+                  }`}
                 >
-                  Book Now
+                  {loadingRoom === idx ? "Loading..." : "Book Now"}
                 </button>
               </div>
             </div>

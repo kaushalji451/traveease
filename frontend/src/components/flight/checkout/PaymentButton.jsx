@@ -5,98 +5,102 @@ import { useRouter } from "next/navigation";
 
 export default function PaymentButton({ amount, flightData, travelers, contact, disabled, user }) {
     const router = useRouter();
-    const [loading, setLoading] = useState(false); //  state for loading screen
+    const [loading, setLoading] = useState(false);   // ✅ Final loading (after payment verification)
+    const [buttonLoading, setButtonLoading] = useState(false); // ✅ Immediate loading after first click
 
     const handlePayment = async () => {
-        if (disabled) return; // prevent click if disabled
+        if (disabled || buttonLoading) return; // prevent multiple clicks
+        setButtonLoading(true); // ✅ Disable and show loading text immediately
 
         const res = await loadRazorpay("https://checkout.razorpay.com/v1/checkout.js");
         if (!res) {
             alert("Razorpay SDK failed to load. Check your connection.");
+            setButtonLoading(false);
             return;
         }
-        console.log("this is money",amount);
 
-        //  Create order on backend
-        const orderRes = await fetch(`${process.env.NEXT_PUBLIC_PAYMENT_URL}/payment/create-order`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ amount }),
-        });
+        try {
+            // ✅ Create order on backend
+            const orderRes = await fetch(`${process.env.NEXT_PUBLIC_PAYMENT_URL}/payment/create-order`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ amount }),
+            });
 
-        const orderData = await orderRes.json();
+            const orderData = await orderRes.json();
 
-        const options = {
-            key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-            amount: orderData.amount,
-            currency: orderData.currency,
-            name: "RudrabhishekTravels",
-            description: "Flight Booking Payment",
-            order_id: orderData.id,
-            handler: async function (response) {
-                // Verify payment
-                const verifyRes = await fetch(`${process.env.NEXT_PUBLIC_PAYMENT_URL}/payment/verify`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(response),
-                });
+            const options = {
+                key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+                amount: orderData.amount,
+                currency: orderData.currency,
+                name: "RudrabhishekTravels",
+                description: "Flight Booking Payment",
+                order_id: orderData.id,
+                handler: async function (response) {
+                    // ✅ Verify payment
+                    const verifyRes = await fetch(`${process.env.NEXT_PUBLIC_PAYMENT_URL}/payment/verify`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(response),
+                    });
 
-                const verifyData = await verifyRes.json();
+                    const verifyData = await verifyRes.json();
 
-                if (verifyData.success) {
-                    //  Show loading screen after successful verification
-                    setLoading(true);
+                    if (verifyData.success) {
+                        setLoading(true); // ✅ Full-screen loading
 
-                    // Collect all booking data
-                    const bookingData = {
-                        flightOffer: flightData,
-                        travelers,
-                        contact,
-                        paymentDetails: response, // contains payment_id, order_id, signature
-                        userId: user.id,
-                    };
-                        console.log(bookingData);
-                    try {
-                        //  Call backend to create PNR
-                        const pnrRes = await fetch(`${process.env.NEXT_PUBLIC_FLIGHT_URL}/create-pnr`, {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify(bookingData),
-                        });
+                        const bookingData = {
+                            flightOffer: flightData,
+                            travelers,
+                            contact,
+                            paymentDetails: response,
+                            userId: user.id,
+                        };
 
-                        const pnrData = await pnrRes.json();
+                        try {
+                            const pnrRes = await fetch(`${process.env.NEXT_PUBLIC_FLIGHT_URL}/create-pnr`, {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify(bookingData),
+                            });
 
-                        if (pnrRes.ok) {
-                            console.log(" PNR Created:", pnrData.pnr);
-                            // Redirect with actual PNR in query
-                            router.push(`/profile/FlightSingleOrder?pnr=${pnrData.pnr}`);
-                        } else {
-                            console.error(" PNR creation failed:", pnrData);
+                            const pnrData = await pnrRes.json();
+
+                            if (pnrRes.ok) {
+                                router.push(`/profile/FlightSingleOrder?pnr=${pnrData.pnr}`);
+                            } else {
+                                console.error("PNR creation failed:", pnrData);
+                                setLoading(false);
+                                setButtonLoading(false);
+                            }
+                        } catch (err) {
+                            console.error("Error creating PNR:", err);
                             setLoading(false);
-                            // router.push("/");
+                            setButtonLoading(false);
+                            alert("PNR creation failed. Check console for details.");
                         }
-                    } catch (err) {
-                        console.error(" Error creating PNR:", err);
-                        setLoading(false);
-                        alert("PNR creation failed. Check console for details.");
+                    } else {
+                        alert("Payment Verification Failed!");
+                        setButtonLoading(false);
                     }
-                } else {
-                    alert(" Payment Verification Failed!");
-                }
-            },
-            prefill: {
-                name: contact?.name || "Traveler",
-                email: contact?.email || "test@example.com",
-                contact: contact?.phone || "9876543210",
-            },
-            theme: { color: "#3399cc" },
-        };
+                },
+                prefill: {
+                    name: contact?.name || "Traveler",
+                    email: contact?.email || "test@example.com",
+                    contact: contact?.phone || "9876543210",
+                },
+                theme: { color: "#3399cc" },
+            };
 
-        const paymentObject = new window.Razorpay(options);
-        paymentObject.open();
+            const paymentObject = new window.Razorpay(options);
+            paymentObject.open();
+        } catch (err) {
+            console.error("Payment error:", err);
+            setButtonLoading(false);
+        }
     };
 
-    //  Show full-page loading overlay after verification success
+    // ✅ Full-page loader after successful verification
     if (loading) {
         return (
             <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
@@ -111,14 +115,14 @@ export default function PaymentButton({ amount, flightData, travelers, contact, 
     return (
         <button
             onClick={handlePayment}
-            disabled={disabled}
+            disabled={disabled || buttonLoading}
             className={`w-full py-3 rounded-md font-semibold transition
-        ${disabled
+                ${(disabled || buttonLoading)
                     ? "bg-gray-400 cursor-not-allowed opacity-60"
                     : "bg-[#6daa5c] text-white hover:bg-[#54ba38]"
                 }`}
         >
-            Continue to Payment
+            {buttonLoading ? "Processing Payment..." : "Continue to Payment"}
         </button>
     );
 }

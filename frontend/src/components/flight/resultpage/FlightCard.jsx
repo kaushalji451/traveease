@@ -14,6 +14,7 @@ const FlightCard = ({
   const router = useRouter();
   const [loading, setLoading] = useState(false); // ✅ boolean, not string
 
+  let rupee_to_inr = 104;
   const handleClick = async () => {
     console.log(offer);
     setLoading(true); // ✅ start loading
@@ -105,14 +106,14 @@ const FlightCard = ({
             </div>
           </div>
           <div className="text-2xl hidden md:block font-bold text-black ">
-            {offer.price.total} {offer.price.currency}
+            {offer.price.total *rupee_to_inr} INR
           </div>
         </div>
 
         {/* Buttons / price */}
         <div className="flex justify-around items-center">
           <div className="text-2xl font-bold text-black block md:hidden">
-            {offer.price.total} {offer.price.currency}
+            {offer.price.total *rupee_to_inr} INR
           </div>
           <div className="flex flex-col">
             <button

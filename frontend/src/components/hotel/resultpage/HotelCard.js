@@ -1,13 +1,16 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 function HotelCard({ hotel, minRate, discount, CheckIn, CheckOut }) {
   const router = useRouter();
   const EUR_TO_INR = 104;
+  const [loading, setLoading] = useState(false);
 
   const handleViewRooms = () => {
+    setLoading(true);
+
     // Remove any previous hotel data
     Object.keys(localStorage)
       .filter((key) => key.startsWith("hotel_"))
@@ -15,7 +18,6 @@ function HotelCard({ hotel, minRate, discount, CheckIn, CheckOut }) {
 
     // Generate random ID
     const hotelId = Math.random().toString(36).substring(2, 10);
-
     // Save current hotel
     localStorage.setItem(
       `hotel_${hotelId}`,
@@ -30,7 +32,9 @@ function HotelCard({ hotel, minRate, discount, CheckIn, CheckOut }) {
     <div className="bg-white border border-slate-200 rounded-xl shadow-md flex flex-col md:flex-row overflow-hidden mb-8">
       <div className="relative w-full md:w-[380px] flex-shrink-0">
         <Image
-          src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-eqZdkMRPvLClkY8RNVbbd557C1e9GWEQ6A&s"}
+          src={
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-eqZdkMRPvLClkY8RNVbbd557C1e9GWEQ6A&s"
+          }
           alt="Hotel"
           width={100}
           height={100}
@@ -66,9 +70,14 @@ function HotelCard({ hotel, minRate, discount, CheckIn, CheckOut }) {
             </div>
             <button
               onClick={handleViewRooms}
-              className="mt-2 bg-[#FFD54F] text-white px-6 py-2 rounded-full font-bold"
+              disabled={loading}
+              className={`mt-2 px-6 py-2 rounded-full font-bold ${
+                loading
+                  ? "bg-gray-400 text-white cursor-not-allowed"
+                  : "bg-[#6daa5c] text-white hover:opacity-90"
+              }`}
             >
-              View Rooms
+              {loading ? "Loading..." : "View Rooms"}
             </button>
           </div>
         </div>

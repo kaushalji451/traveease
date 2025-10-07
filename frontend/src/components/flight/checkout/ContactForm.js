@@ -2,13 +2,15 @@ import React from "react";
 
 export default function ContactForm({ contactDetails, setContactDetails }) {
   return (
-    <div className="px-5 py-3 border border-slate-300 rounded-xl mx-4 shadow-md">
+    <div className="px-5 py-3 border border-slate-300 rounded-xl mx-4 shadow-md max-w-3xl mx-auto">
       <div className="font-semibold mb-2">Contact Details</div>
       <p className="text-xs text-gray-500 mb-3">
         Your ticket & flight details will be shared here
       </p>
-      <div className="flex justify-between gap-5">
-        <div className="mb-3 w-1/2">
+
+      <div className="flex flex-col md:flex-row gap-4">
+        {/* Email */}
+        <div className="mb-3 w-full md:w-1/2">
           <label className="block text-sm mb-1">Email Address</label>
           <input
             type="email"
@@ -21,12 +23,16 @@ export default function ContactForm({ contactDetails, setContactDetails }) {
             }
           />
         </div>
-        <div className="mb-3 w-1/2">
+
+        {/* Phone */}
+        <div className="mb-3 w-full md:w-1/2">
           <label className="block text-sm mb-1">Phone Number</label>
           <div className="flex gap-2">
-            <span className="border rounded p-2 text-gray-600 bg-gray-100">+91</span>
+            <span className="border rounded p-2 text-gray-600 bg-gray-100 flex-shrink-0">
+              +91
+            </span>
             <input
-              type="text"
+              type="tel"
               placeholder="Enter Mobile No."
               className="border rounded p-2 w-full border-slate-300"
               value={contactDetails.phone}

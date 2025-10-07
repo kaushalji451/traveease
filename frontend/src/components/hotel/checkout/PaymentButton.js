@@ -61,7 +61,7 @@ export default function PaymentButton({
           };
 
           try {
-            let data = await fetch(`${process.env.NEXT_PUBLIC_PAYMENT_URL}/user/add-hotel-booking`, {
+            let data = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/user/add-hotel-booking`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(saveddata),
@@ -74,8 +74,6 @@ export default function PaymentButton({
             console.log(error);
             router.push(`/`);
           }
-
-          setLoading(false);
         } else {
           alert("Payment Verification Failed!");
         }

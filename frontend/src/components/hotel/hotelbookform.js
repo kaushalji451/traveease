@@ -342,7 +342,7 @@ const HotelBookingForm = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full md:w-auto bg-[#FFD54F] hover:bg-yellow-400 text-white uppercase font-bold text-lg py-4 rounded-md shadow-md transition-all"
+            className="w-full md:w-auto bg-[#6daa5c] hover:bg-[#66c44b] text-white uppercase font-bold text-lg py-4 rounded-md shadow-md transition-all"
             style={{ minWidth: 150 }}
           >
             {loading ? 'Loading...' : 'Search'}

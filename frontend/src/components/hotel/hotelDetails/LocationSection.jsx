@@ -3,7 +3,7 @@ import React, { forwardRef } from "react";
 
 const LocationSection = forwardRef(({ hotel }, ref) => (
   <section ref={ref} className="mb-10">
-    <h3 className="text-xl font-semibold mb-4 border-b border-orange-600 pb-2">
+    <h3 className="text-xl font-semibold mb-4 border-b border-[#6daa5c] pb-2">
       Location
     </h3>
     <div className="border rounded overflow-hidden shadow-sm">

@@ -22,7 +22,7 @@ const Page = () => {
                 href="/profile"
                 className="flex items-center text-[#66BB6A] font-semibold mb-6 hover:underline"
             >
-                <span className="mr-2 text-lg">←</span> My Profile
+                <span className="mr-2 text-lg">←</span> Back
             </Link>
 
             {/* Forms */}

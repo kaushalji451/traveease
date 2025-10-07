@@ -109,7 +109,7 @@ function FlightOrdersContent() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   PNR
                 </label>
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-3 max-md:flex-col">
                   <span className="text-lg font-mono text-gray-800 bg-gray-50 px-3 py-1 rounded-md">
                     {booking.pnr}
                   </span>

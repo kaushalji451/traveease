@@ -11,6 +11,13 @@ function HotelInfoCard({ hotel, minRate, discount }) {
     "https://images.unsplash.com/photo-1618773928121-c32242e63f39?fm=jpg&q=60&w=3000",
   ];
 
+  const handleScroll = () => {
+    window.scrollBy({
+      top: window.innerHeight, // scroll exactly 1 screen
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div className="flex flex-col md:flex-row bg-white rounded-lg shadow-md overflow-hidden mb-6 border border-gray-200">
       {/* Image Carousel */}
@@ -115,10 +122,16 @@ function HotelInfoCard({ hotel, minRate, discount }) {
 
           {/* Buttons */}
           <div className="flex gap-3 mt-4">
-            <button className="flex-1 border-2 border-[#6daa5c] text-[#6daa5c] rounded py-2 hover:bg-orange-50 font-semibold transition">
+            <button
+              onClick={handleScroll}
+              className="flex-1 border-2 border-[#6daa5c] text-[#6daa5c] rounded py-2 hover:bg-orange-50 font-semibold transition"
+            >
               Select Rooms
             </button>
-            <button className="flex-1 bg-[#6daa5c] text-white rounded py-2 hover:bg-[#67ad53] font-semibold transition shadow">
+            <button
+              onClick={handleScroll}
+              className="flex-1 bg-[#6daa5c] text-white rounded py-2 hover:bg-[#67ad53] font-semibold transition shadow"
+            > 
               Book Now
             </button>
           </div>

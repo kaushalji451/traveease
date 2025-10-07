@@ -261,8 +261,8 @@ const Flightbookform = () => {
             type="submit"
             disabled={loading} // ✅ Disable when loading
             className={`${
-              loading ? "bg-gray-400 cursor-not-allowed" : "bg-[#FFD54F] hover:bg-yellow-400"
-            } text-[#212121] font-bold py-3 px-6 rounded-md shadow-md`}
+              loading ? "bg-gray-400 cursor-not-allowed" : "bg-[#6daa5c] hover:bg-[#66c44b]"
+            } text-[#fff] font-bold py-3 px-6 rounded-md shadow-md`}
           >
             {loading ? "Loading..." : "SEARCH"}
           </button>
