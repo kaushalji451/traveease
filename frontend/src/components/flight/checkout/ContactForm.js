@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ContactForm({ contactDetails, setContactDetails }) {
   return (
-    <div className="px-5 py-3 border border-slate-300 rounded-xl mx-4 shadow-md max-w-3xl mx-auto">
+    <div className="px-5 py-3 border border-slate-300 rounded-xl  shadow-md max-w-3xl mx-auto">
       <div className="font-semibold mb-2">Contact Details</div>
       <p className="text-xs text-gray-500 mb-3">
         Your ticket & flight details will be shared here
