@@ -159,15 +159,14 @@ export default function HotelCheckoutPage() {
               {hotelData.room.rates.map((rate, idx) => (
                 <div
                   key={idx}
-                  className={`border rounded-lg p-3 cursor-pointer transition-all ${
-                    selectedRate.rateKey === rate.rateKey
+                  className={`border rounded-lg p-3 cursor-pointer transition-all ${selectedRate.rateKey === rate.rateKey
                       ? "border-[#6daa5c] bg-[#6daa5c]/40"
                       : "border-gray-200 bg-white"
-                  }`}
+                    }`}
                   onClick={() => setSelectedRate(rate)}
                 >
                   <div className="font-medium">{rate.boardName}</div>
-                  <div>Price: €{parseFloat(rate.net * EURO_TO_INR).toFixed(2)}</div>
+                  <div>Price: ₹{parseFloat(rate.net * EURO_TO_INR).toFixed(2)}</div>
                   <div>Offer: {rate.offers?.[0]?.name || "—"}</div>
                   <div>Guests: {rate.adults} Adults</div>
                 </div>
@@ -225,24 +224,30 @@ export default function HotelCheckoutPage() {
               ))}
 
               {/* Contact Details */}
-              <div className="mb-4 px-3 py-2 border border-gray-200 rounded-lg">
-                <div className="flex flex-col md:flex-row gap-3">
+              <div className="mb-4 px-4 py-3 border border-gray-200 rounded-xl shadow-sm bg-white transition-all duration-200 hover:shadow-md">
+                <div className="flex flex-col md:flex-row gap-3 md:gap-4">
+                  {/* Email Input */}
                   <input
                     type="email"
                     placeholder="Email Address"
-                    className="border px-2 py-1 flex-1 rounded"
+                    className="border px-3 py-2 rounded-lg flex-1 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#6DAA5C] transition-all duration-200"
                     value={contact.email}
                     required
                     onChange={(e) => setContact({ ...contact, email: e.target.value })}
                   />
-                  <div className="flex gap-1 flex-1">
-                    <select className="border px-2 py-1 rounded" defaultValue="+91">
+
+                  {/* Phone Input Group */}
+                  <div className="flex w-full md:w-auto gap-2">
+                    <select
+                      className="border px-3 py-2 rounded-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#6DAA5C] transition-all duration-200 bg-gray-50 text-gray-700"
+                      defaultValue="+91"
+                    >
                       <option>+91</option>
                     </select>
                     <input
                       type="tel"
                       placeholder="Mobile Number"
-                      className="border px-2 py-1 flex-1 rounded"
+                      className="border px-3 py-2 rounded-lg flex-1 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#6DAA5C] transition-all duration-200"
                       value={contact.phone}
                       required
                       onChange={(e) => setContact({ ...contact, phone: e.target.value })}
@@ -255,17 +260,16 @@ export default function HotelCheckoutPage() {
               <button
                 type="submit"
                 disabled={isBookingLoading || bookingReference}
-                className={`w-full py-3 rounded-md font-semibold transition ${
-                  isBookingLoading || bookingReference
+                className={`w-full py-3 rounded-md font-semibold transition ${isBookingLoading || bookingReference
                     ? "bg-gray-400 text-white cursor-not-allowed"
                     : "bg-[#6daa5c] text-white hover:bg-[#66c44b]"
-                }`}
+                  }`}
               >
                 {isBookingLoading
                   ? "Processing..."
                   : bookingReference
-                  ? "Booking Confirmed"
-                  : "Submit Guest Details & Confirm Booking"}
+                    ? "Booking Confirmed"
+                    : "Submit Guest Details & Confirm Booking"}
               </button>
             </form>
           </div>
@@ -276,11 +280,7 @@ export default function HotelCheckoutPage() {
           <div className="bg-white shadow-md rounded-lg p-6">
             <div className="font-semibold text-lg mb-2 text-center">Room Price Details</div>
             <div className="flex justify-between mb-1">
-              <span>Price (EUR)</span>
-              <span>€{euroPrice.toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between mb-1">
-              <span>Price (INR)</span>
+              <span>Price ₹</span>
               <span>₹{priceINR}</span>
             </div>
             <div className="flex justify-between font-semibold mt-3">
