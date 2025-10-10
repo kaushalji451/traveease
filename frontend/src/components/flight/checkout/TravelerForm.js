@@ -1,7 +1,51 @@
-import React, { useState } from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 
 function TravelerForm({ index, data, onChange }) {
   const [open, setOpen] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const validate = (field, value) => {
+    let error = "";
+
+    switch (field) {
+      case "firstName":
+      case "lastName":
+        if (!value.trim()) error = "Required";
+        break;
+      case "gender":
+        if (!value) error = "Select gender";
+        break;
+      case "dateOfBirth":
+        if (!value) error = "Required";
+        break;
+      case "email":
+        if (!value) error = "Required";
+        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) error = "Invalid email";
+        break;
+      case "contactNumber":
+        if (!value) error = "Required";
+        else if (!/^\d{10}$/.test(value)) error = "Invalid number";
+        break;
+    }
+
+    setErrors((prev) => ({ ...prev, [field]: error }));
+    return !error;
+  };
+
+  // Validate all fields on demand
+  // const validateAll = () => {
+  //   const allValid = ["firstName", "lastName", "email", "contactNumber", "gender", "dateOfBirth"].every(
+  //     (f) => validate(f, data[f])
+  //   );
+  //   setIsValid(index, allValid);
+  //   return allValid;
+  // };
+
+  const handleChange = (field, value) => {
+    onChange(index, { ...data, [field]: value });
+    validate(field, value);
+  };
 
   return (
     <div className="mb-5 border border-slate-300 rounded-xl bg-white shadow-sm transition-all duration-300 hover:shadow-md">
@@ -12,19 +56,12 @@ function TravelerForm({ index, data, onChange }) {
         onClick={() => setOpen(!open)}
       >
         <div className="flex items-center gap-2 text-left">
-          <input
-            type="checkbox"
-            checked={true}
-            readOnly
-            className="w-4 h-4 accent-green-600"
-          />
+          <input type="checkbox" checked={true} readOnly className="w-4 h-4 accent-green-600" />
           <span className="text-base sm:text-lg font-semibold text-gray-800">
             Adult {index + 1}
           </span>
         </div>
-        <span className="text-gray-600 text-lg sm:text-xl">
-          {open ? "▲" : "▼"}
-        </span>
+        <span className="text-gray-600 text-lg sm:text-xl">{open ? "▲" : "▼"}</span>
       </button>
 
       {/* Collapsible Content */}
@@ -33,110 +70,83 @@ function TravelerForm({ index, data, onChange }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {/* Gender */}
             <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-700 mb-1">
-                Gender
-              </label>
+              <label className="text-sm font-medium text-gray-700 mb-1">Gender</label>
               <select
-                className="border rounded-lg border-slate-400 p-2 focus:outline-none focus:ring-2 focus:ring-[#6DAA5C]"
+                className={`border rounded-lg p-2 focus:outline-none focus:ring-2 ${errors.gender ? "border-red-500 focus:ring-red-400" : "border-slate-400 focus:ring-[#6DAA5C]"}`}
                 value={data.gender}
-                required
-                onChange={(e) =>
-                  onChange(index, { ...data, gender: e.target.value })
-                }
+                onChange={(e) => handleChange("gender", e.target.value)}
               >
                 <option value="">Select</option>
                 <option value="MALE">Male</option>
                 <option value="FEMALE">Female</option>
                 <option value="OTHER">Others</option>
               </select>
+              {errors.gender && <span className="text-red-500 text-sm mt-1">{errors.gender}</span>}
             </div>
 
             {/* First Name */}
             <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-700 mb-1">
-                First Name
-              </label>
+              <label className="text-sm font-medium text-gray-700 mb-1">First Name</label>
               <input
-                className="border rounded-lg border-slate-400 p-2 focus:outline-none focus:ring-2 focus:ring-[#6DAA5C]"
+                className={`border rounded-lg p-2 focus:outline-none focus:ring-2 ${errors.firstName ? "border-red-500 focus:ring-red-400" : "border-slate-400 focus:ring-[#6DAA5C]"}`}
                 type="text"
                 placeholder="Enter First Name"
-                required
                 value={data.firstName}
-                onChange={(e) =>
-                  onChange(index, { ...data, firstName: e.target.value })
-                }
+                onChange={(e) => handleChange("firstName", e.target.value)}
               />
+              {errors.firstName && <span className="text-red-500 text-sm mt-1">{errors.firstName}</span>}
             </div>
 
             {/* Date of Birth */}
             <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-700 mb-1">
-                Date of Birth
-              </label>
+              <label className="text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
               <input
-                className="border rounded-lg border-slate-400 p-2 focus:outline-none focus:ring-2 focus:ring-[#6DAA5C]"
+                className={`border rounded-lg p-2 focus:outline-none focus:ring-2 ${errors.dateOfBirth ? "border-red-500 focus:ring-red-400" : "border-slate-400 focus:ring-[#6DAA5C]"}`}
                 type="date"
-                required
                 value={data.dateOfBirth}
-                onChange={(e) =>
-                  onChange(index, { ...data, dateOfBirth: e.target.value })
-                }
+                onChange={(e) => handleChange("dateOfBirth", e.target.value)}
               />
+              {errors.dateOfBirth && <span className="text-red-500 text-sm mt-1">{errors.dateOfBirth}</span>}
             </div>
           </div>
 
           {/* Last Name */}
           <div className="flex flex-col">
-            <label className="text-sm font-medium text-gray-700 mb-1">
-              Last Name
-            </label>
+            <label className="text-sm font-medium text-gray-700 mb-1">Last Name</label>
             <input
-              className="border rounded-lg border-slate-400 p-2 focus:outline-none focus:ring-2 focus:ring-[#6DAA5C]"
+              className={`border rounded-lg p-2 focus:outline-none focus:ring-2 ${errors.lastName ? "border-red-500 focus:ring-red-400" : "border-slate-400 focus:ring-[#6DAA5C]"}`}
               type="text"
               placeholder="Enter Last Name"
-              required
               value={data.lastName}
-              onChange={(e) =>
-                onChange(index, { ...data, lastName: e.target.value })
-              }
+              onChange={(e) => handleChange("lastName", e.target.value)}
             />
+            {errors.lastName && <span className="text-red-500 text-sm mt-1">{errors.lastName}</span>}
           </div>
 
-          {/* Email & Contact */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Email */}
-            <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-700 mb-1">
-                Email
-              </label>
-              <input
-                className="border rounded-lg border-slate-400 p-2 focus:outline-none focus:ring-2 focus:ring-[#6DAA5C]"
-                type="email"
-                placeholder="Enter Email ID"
-                required
-                value={data.email}
-                onChange={(e) =>
-                  onChange(index, { ...data, email: e.target.value })
-                }
-              />
-            </div>
+          {/* Email */}
+          <div className="flex flex-col">
+            <label className="text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input
+              className={`border rounded-lg p-2 focus:outline-none focus:ring-2 ${errors.email ? "border-red-500 focus:ring-red-400" : "border-slate-400 focus:ring-[#6DAA5C]"}`}
+              type="email"
+              placeholder="Enter Email"
+              value={data.email}
+              onChange={(e) => handleChange("email", e.target.value)}
+            />
+            {errors.email && <span className="text-red-500 text-sm mt-1">{errors.email}</span>}
+          </div>
 
-            {/* Contact Number */}
-            <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-700 mb-1">
-                Contact Number
-              </label>
-              <input
-                className="border rounded-lg border-slate-400 p-2 focus:outline-none focus:ring-2 focus:ring-[#6DAA5C]"
-                type="tel"
-                placeholder="Enter Contact Number"
-                required
-                value={data.contactNumber}
-                onChange={(e) =>
-                  onChange(index, { ...data, contactNumber: e.target.value })
-                }
-              />
-            </div>
+          {/* Contact Number */}
+          <div className="flex flex-col">
+            <label className="text-sm font-medium text-gray-700 mb-1">Contact Number</label>
+            <input
+              className={`border rounded-lg p-2 focus:outline-none focus:ring-2 ${errors.contactNumber ? "border-red-500 focus:ring-red-400" : "border-slate-400 focus:ring-[#6DAA5C]"}`}
+              type="tel"
+              placeholder="Enter Contact Number"
+              value={data.contactNumber}
+              onChange={(e) => handleChange("contactNumber", e.target.value)}
+            />
+            {errors.contactNumber && <span className="text-red-500 text-sm mt-1">{errors.contactNumber}</span>}
           </div>
         </div>
       )}

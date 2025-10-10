@@ -2,15 +2,15 @@
 import React, { forwardRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
-const RoomsSection = forwardRef(({ hotel,CheckIn,CheckOut }, ref) => {
+const RoomsSection = forwardRef(({ hotel, CheckIn, CheckOut }, ref) => {
   const router = useRouter();
   const EUR_TO_INR = 104;
   const [loadingRoom, setLoadingRoom] = useState(null); // store index of clicked room
-   
+
   const handleBookNow = (room, idx) => {
     setLoadingRoom(idx);
 
-    console.log("Selected Room Details:", room ,CheckIn,CheckOut);
+    console.log("Selected Room Details:", room, CheckIn, CheckOut);
 
     // First clear any existing "hotel*" keys
     Object.keys(localStorage).forEach((key) => {
@@ -24,7 +24,7 @@ const RoomsSection = forwardRef(({ hotel,CheckIn,CheckOut }, ref) => {
     const randomId = `hotelroom${Math.floor(1000 + Math.random() * 9000)}`;
 
     // Save room directly with that key
-    localStorage.setItem(randomId, JSON.stringify({room,CheckIn,CheckOut}));
+    localStorage.setItem(randomId, JSON.stringify({ room, CheckIn, CheckOut }));
 
     // Redirect with query param
     router.push(`/HotelCheckOut/?id=${randomId}`);
@@ -42,8 +42,18 @@ const RoomsSection = forwardRef(({ hotel,CheckIn,CheckOut }, ref) => {
           const netPrice = rate ? parseFloat(rate.net) * EUR_TO_INR : 0;
           const offer = rate?.offers?.[0];
           const offerAmount = offer ? parseFloat(offer.amount) * EUR_TO_INR : 0;
-          const discountedPrice = netPrice + offerAmount;
 
+          // Correct discounted price logic
+          let discountedPrice = netPrice;
+          if (offer) {
+            if (offerAmount < 0) {
+              // Only subtract if discount is less than netPrice
+              discountedPrice = netPrice + offerAmount < 0 ? netPrice : netPrice + offerAmount;
+            } else {
+              // If offerAmount is positive, add it
+              discountedPrice = netPrice + offerAmount;
+            }
+          }
           return (
             <div
               key={idx}
@@ -80,11 +90,10 @@ const RoomsSection = forwardRef(({ hotel,CheckIn,CheckOut }, ref) => {
                 <button
                   onClick={() => handleBookNow(room, idx)}
                   disabled={loadingRoom === idx}
-                  className={`w-full font-bold py-2 rounded-md transition ${
-                    loadingRoom === idx
+                  className={`w-full font-bold py-2 rounded-md transition ${loadingRoom === idx
                       ? "bg-gray-400 cursor-not-allowed text-white"
                       : "bg-[#6daa5c] hover:bg-[#66c44b] text-white"
-                  }`}
+                    }`}
                 >
                   {loadingRoom === idx ? "Loading..." : "Book Now"}
                 </button>

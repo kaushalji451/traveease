@@ -9,7 +9,7 @@ import TravelerForm from "./TravelerForm";
 import ContactForm from "./ContactForm";
 import BaggageContent from "./BaggageContent";
 import PaymentButton from "@/components/flight/checkout/PaymentButton";
-import {verifyUserToken} from '@/lib/auth';
+import { verifyUserToken } from '@/lib/auth';
 
 export default function FlightDetailPage() {
   const router = useRouter();
@@ -26,6 +26,7 @@ export default function FlightDetailPage() {
     phone: "",
   });
   const [authChecked, setAuthChecked] = useState(false);
+  const [travelersValid, setTravelersValid] = useState([]);
 
   // ✅ Check user login
   useEffect(() => {
@@ -59,6 +60,16 @@ export default function FlightDetailPage() {
       }
     }
   }, [id]);
+
+  
+// Track each traveler form validity
+const setTravelerValid = (i, isValid) => {
+  setTravelersValid((prev) => {
+    const next = [...prev];
+    next[i] = isValid;
+    return next;
+  });
+};
 
   // Traveler forms setup
   useEffect(() => {
@@ -153,6 +164,7 @@ export default function FlightDetailPage() {
                 index={i}
                 data={form}
                 onChange={handleTravelerChange}
+                setIsValid={setTravelerValid}
               />
             ))}
           </div>

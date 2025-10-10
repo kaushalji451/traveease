@@ -1,41 +1,25 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { FaHotel, FaRegCalendarAlt, FaAngleDown } from "react-icons/fa";
 import IndianCityData from "./indiancitydata";
 import { useRouter } from "next/navigation";
 
-const defaultRoom = { adults: 2, children: 0 };
-
 const HotelBookingForm = () => {
   const router = useRouter();
   const today = new Date().toISOString().split("T")[0];
-  const [loading, setloading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     location: "",
-    code: "BLR", // default code
+    code: "BLR",
     checkIn: today,
     checkOut: "",
-    rooms: [{ ...defaultRoom }],
+    adults: 2,
+    children: 0,
   });
 
-  // Location search states
   const [locationQuery, setLocationQuery] = useState(formData.location);
   const [locationResults, setLocationResults] = useState([]);
-
-  // Rooms dropdown
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
-
-  // Close guest dropdown when clicking outside
-  React.useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   // City search
   const searchCities = (query) => {
@@ -49,7 +33,6 @@ const HotelBookingForm = () => {
     setLocationResults(results.slice(0, 8));
   };
 
-  // On selecting a city
   const handleCitySelect = (cityObj) => {
     setFormData({
       ...formData,
@@ -60,66 +43,37 @@ const HotelBookingForm = () => {
     setLocationResults([]);
   };
 
-  // Handle form field changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Update room guest count
-  const handleRoomGuests = (idx, type, delta) => {
+  const handleGuests = (type, delta) => {
     setFormData((prev) => {
-      const updated = prev.rooms.map((room, i) => {
-        if (i === idx) {
-          let newValue = room[type] + delta;
-          if (type === "adults" && newValue < 1) newValue = 1;
-          if (type === "children" && newValue < 0) newValue = 0;
-          return { ...room, [type]: newValue };
-        }
-        return room;
-      });
-      return { ...prev, rooms: updated };
+      let newValue = prev[type] + delta;
+      if (type === "adults" && newValue < 1) newValue = 1;
+      if (type === "children" && newValue < 0) newValue = 0;
+      return { ...prev, [type]: newValue };
     });
   };
 
-  const handleAddRoom = () => {
-    setFormData((prev) => ({
-      ...prev,
-      rooms: [...prev.rooms, { ...defaultRoom }],
-    }));
-  };
-
-
-  // Add room number explicitly
-  const occupancy = JSON.stringify(
-    formData.rooms.map((room, idx) => ({
-      rooms: idx + 1,
-      adults: room.adults,
-      children: room.children,
-    }))
-  );
-
-  // ✅ Navigate to results page with query params
   const handleSubmit = (e) => {
     e.preventDefault();
-    setloading(true);
+    setLoading(true);
+    const occupancy = JSON.stringify([
+      { rooms: 1, adults: formData.adults, children: formData.children },
+    ]);
     const query = new URLSearchParams({
       destinationCode: formData.code,
       checkIn: formData.checkIn,
       checkOut: formData.checkOut,
-      occupancy: occupancy
+      occupancy,
     });
-    setloading(false);
+    setLoading(false);
     router.push(`/HotelList?${query.toString()}`);
   };
 
-
-
-
-  const roomsLabel = `${formData.rooms.length} Room${formData.rooms.length > 1 ? "s" : ""
-    }, ${formData.rooms.reduce((acc, r) => acc + r.adults, 0) +
-    formData.rooms.reduce((acc, r) => acc + r.children, 0)
-    } Guests`;
+  const roomsLabel = `1 Room, ${formData.adults + formData.children} Guests`;
 
   return (
     <div className="w-full min-h-[240px] flex flex-col items-center justify-center bg-gradient-to-b from-[#6DAA5C] via-[#7FBF6D] to-[#98D487] py-10">
@@ -135,14 +89,12 @@ const HotelBookingForm = () => {
         onSubmit={handleSubmit}
         className="flex flex-col md:flex-row items-stretch bg-white rounded-lg shadow-lg w-full max-w-7xl mx-4 md:mx-0"
       >
-        {/* Location with Search */}
+        {/* Location */}
         <div className="flex-1 min-w-[220px] relative px-4 py-4 border-b md:border-b-0 md:border-r border-gray-200">
           <p className="text-xs text-gray-500 flex items-center gap-1 mb-1">
             <FaHotel className="text-base text-gray-400" />
             Enter City Name
           </p>
-
-          {/* Input */}
           <input
             type="text"
             name="location"
@@ -156,7 +108,6 @@ const HotelBookingForm = () => {
             required
           />
 
-          {/* Dropdown Results */}
           {locationResults.length > 0 && (
             <ul className="absolute bg-white border rounded w-full mt-1 max-h-60 overflow-y-auto z-10 shadow-lg">
               {locationResults.map((city) => (
@@ -165,7 +116,6 @@ const HotelBookingForm = () => {
                   onClick={() => handleCitySelect(city)}
                   className="flex items-center justify-between px-3 py-2 cursor-pointer hover:bg-gray-100"
                 >
-                  {/* Left: hotel icon + city info */}
                   <div className="flex items-center gap-2 flex-1">
                     <FaHotel className="text-gray-400 text-lg" />
                     <div>
@@ -174,15 +124,12 @@ const HotelBookingForm = () => {
                       </div>
                     </div>
                   </div>
-
-                  {/* Right: fallback country */}
                   <span className="text-xs text-gray-500 pl-2">India</span>
                 </li>
               ))}
             </ul>
           )}
         </div>
-
 
         {/* Check-In */}
         <div className="px-4 py-4 flex flex-col border-b md:border-b-0 md:border-r border-gray-200 min-w-[120px] md:flex-grow">
@@ -218,13 +165,13 @@ const HotelBookingForm = () => {
           />
         </div>
 
-        {/* Rooms & Guests Dropdown */}
+        {/* Guests */}
         <div className="px-4 py-4 flex flex-col justify-center border-b md:border-b-0 md:border-r border-gray-200 min-w-[170px] md:flex-grow relative">
           <label className="text-xs text-gray-500 font-semibold mb-2">
             Rooms & Guests
           </label>
           <div
-            className="flex items-center gap-3 flex-wrap p-2 pl-3 bg-gray-50 rounded cursor-pointer border border-gray-300 min-w-[140px]"
+            className="flex items-center gap-3 flex-wrap p-2 pl-3 bg-gray-50 rounded border border-gray-300 min-w-[140px] cursor-pointer"
             onClick={() => setDropdownOpen((open) => !open)}
           >
             <span className="font-bold select-none">{roomsLabel}</span>
@@ -232,99 +179,59 @@ const HotelBookingForm = () => {
           </div>
 
           {dropdownOpen && (
-            <div
-              ref={dropdownRef}
-              className="absolute z-[999] left-0 mt-2 bg-white border border-gray-300 shadow-2xl rounded-lg p-4 min-w-[250px] w-[320px]"
-              style={{ top: "100%" }}
+            <div className="absolute z-[999] left-0 mt-2 bg-white border border-gray-300 shadow-2xl rounded-lg p-4 min-w-[250px] w-[320px] top-[100%]"
             >
-              {/* Scrollable Room Cards */}
-              <div className="max-h-[300px] overflow-y-auto pr-2">
-                {formData.rooms.map((room, idx) => (
-                  <div key={idx} className="mb-4 flex items-center justify-between">
-                    <div className="flex-1">
-                      <div className="font-semibold text-gray-700 mb-2 flex justify-between">
-                        <p>Room {idx + 1}:</p>
-                        {idx > 0 && (
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setFormData((prev) => ({
-                                ...prev,
-                                rooms: prev.rooms.filter((_, i) => i !== idx),
-                              }));
-                            }}
-                            className="text-red-600 font-bold px-3 rounded border border-red-500 hover:bg-red-100"
-                          >
-                            Remove
-                          </button>
-                        )}
-                      </div>
-                      {/* Adults */}
-                      <div className="flex items-center justify-between mb-2">
-                        <span>
-                          Adult
-                          <br />
-                          <span className="text-xs text-gray-400">(Above 12 years)</span>
-                        </span>
-                        <div className="flex items-center">
-                          <button
-                            type="button"
-                            onClick={() => handleRoomGuests(idx, "adults", -1)}
-                            className="px-2 py-1 border border-slate-300 text-lg rounded-l text-gray-700 bg-gray-100"
-                            disabled={room.adults <= 1}
-                          >
-                            -
-                          </button>
-                          <span className="px-4">{room.adults}</span>
-                          <button
-                            type="button"
-                            onClick={() => handleRoomGuests(idx, "adults", 1)}
-                            className="px-2 py-1 border border-slate-300 text-lg rounded-r text-gray-700 bg-gray-100"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                      {/* Children */}
-                      <div className="flex items-center justify-between">
-                        <span>
-                          Child
-                          <br />
-                          <span className="text-xs text-gray-400">(Below 12 years)</span>
-                        </span>
-                        <div className="flex items-center">
-                          <button
-                            type="button"
-                            onClick={() => handleRoomGuests(idx, "children", -1)}
-                            className="px-2 py-1 border border-slate-300 text-lg rounded-l text-gray-700 bg-gray-100"
-                            disabled={room.children <= 0}
-                          >
-                            -
-                          </button>
-                          <span className="px-4">{room.children}</span>
-                          <button
-                            type="button"
-                            onClick={() => handleRoomGuests(idx, "children", 1)}
-                            className="px-2 py-1 border border-slate-300 text-lg rounded-r text-gray-700 bg-gray-100"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              <div className="flex items-center justify-between mb-2">
+                <span>
+                  Adult <br />
+                  <span className="text-xs text-gray-400">(Above 12 years)</span>
+                </span>
+                <div className="flex items-center">
+                  <button
+                    type="button"
+                    onClick={() => handleGuests("adults", -1)}
+                    className="px-2 py-1 border border-slate-300 text-lg rounded-l text-gray-700 bg-gray-100"
+                    disabled={formData.adults <= 1}
+                  >
+                    -
+                  </button>
+                  <span className="px-4">{formData.adults}</span>
+                  <button
+                    type="button"
+                    onClick={() => handleGuests("adults", 1)}
+                    className="px-2 py-1 border border-slate-300 text-lg rounded-r text-gray-700 bg-gray-100"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
 
-              {/* Buttons below scroll */}
+              <div className="flex items-center justify-between">
+                <span>
+                  Child <br />
+                  <span className="text-xs text-gray-400">(Below 12 years)</span>
+                </span>
+                <div className="flex items-center">
+                  <button
+                    type="button"
+                    onClick={() => handleGuests("children", -1)}
+                    className="px-2 py-1 border border-slate-300 text-lg rounded-l text-gray-700 bg-gray-100"
+                    disabled={formData.children <= 0}
+                  >
+                    -
+                  </button>
+                  <span className="px-4">{formData.children}</span>
+                  <button
+                    type="button"
+                    onClick={() => handleGuests("children", 1)}
+                    className="px-2 py-1 border border-slate-300 text-lg rounded-r text-gray-700 bg-gray-100"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
               <div className="flex justify-end mt-2">
-                <button
-                  type="button"
-                  onClick={handleAddRoom}
-                  className="text-[#A8E6A1] border border-[#A8E6A1] rounded px-4 py-1 mr-2 hover:bg-green-50"
-                >
-                  Add Room
-                </button>
                 <button
                   type="button"
                   onClick={() => setDropdownOpen(false)}
@@ -345,7 +252,7 @@ const HotelBookingForm = () => {
             className="w-full md:w-auto bg-[#6daa5c] hover:bg-[#66c44b] text-white uppercase font-bold text-lg py-4 rounded-md shadow-md transition-all"
             style={{ minWidth: 150 }}
           >
-            {loading ? 'Loading...' : 'Search'}
+            {loading ? "Loading..." : "Search"}
           </button>
         </div>
       </form>

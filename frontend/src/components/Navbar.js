@@ -54,12 +54,14 @@ const Navbar = () => {
       }
     };
     checkAuth();
-    const handleStorageChange = (event) => {
-      if (event.key === "token") checkAuth();
-    };
-    window.addEventListener("storage", handleStorageChange);
 
-    return () => window.removeEventListener("storage", handleStorageChange);
+
+    const handleUserLogin = () => checkAuth(); // custom event
+  window.addEventListener("user-login", handleUserLogin);
+
+  return () => {
+    window.removeEventListener("user-login", handleUserLogin);
+  };
   }, []);
 
   const handleLogout = () => {

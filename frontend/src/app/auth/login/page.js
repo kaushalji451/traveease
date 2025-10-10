@@ -33,10 +33,8 @@ const Login = () => {
         localStorage.removeItem("token");
         localStorage.setItem("token", token);
         toast('Login Successful. Redirected to profile');
-
-        setTimeout(() => {
+        window.dispatchEvent(new Event("user-login"));
           router.push("/profile");
-        }, 2000); // ✅ shorter delay for better UX
       }
     } catch (err) {
       console.error(err.response?.data || err.message);

@@ -106,14 +106,14 @@ const FlightCard = ({
             </div>
           </div>
           <div className="text-2xl hidden md:block font-bold text-black ">
-            {offer.price.total *rupee_to_inr} INR
+            {(offer.price.total *rupee_to_inr).toFixed(2)} INR
           </div>
         </div>
 
         {/* Buttons / price */}
         <div className="flex justify-around items-center">
           <div className="text-2xl font-bold text-black block md:hidden">
-            {offer.price.total *rupee_to_inr} INR
+            {(offer.price.total *rupee_to_inr).toFixed(2)} INR
           </div>
           <div className="flex flex-col">
             <button
