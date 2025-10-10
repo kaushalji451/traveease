@@ -53,8 +53,6 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
   return (
     <div className="w-full border border-gray-300 rounded-2xl">
       <div className="p-5 border-b border-slate-400 max-sm:text-center">
-        <h1 className="text-xl font-semibold">Mr. Smith</h1>
-        <p>Joined Since 2025</p>
       </div>
 
       <div className="mb-5">

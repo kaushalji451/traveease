@@ -1,8 +1,12 @@
 "use client";
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
+import { verifyUserToken } from '@/lib/auth';
+import { useRouter } from 'next/navigation';
 
 const Passangeform = () => {
+    const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
+    const [user, setuser] = useState("");
     const [form, setForm] = useState({
         passengerType: '',
         firstName: '',
@@ -16,6 +20,25 @@ const Passangeform = () => {
 
     const [errors, setErrors] = useState({});
 
+    // ✅ Fetch user from token and DB
+    useEffect(() => {
+        const fetchUser = async () => {
+            if (typeof window !== "undefined") {
+                const token = localStorage.getItem("token");
+                if (token) {
+                    const res = await verifyUserToken(token);
+                    console.log(res);
+                    if (res?.id) {
+                        setuser(res.id);
+                        console.log(res.id);
+                    }
+                }
+            }
+        };
+        fetchUser();
+    }, []);
+
+
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
@@ -28,13 +51,38 @@ const Passangeform = () => {
         return newErrors;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const validationErrors = validate();
         setErrors(validationErrors);
-        if (Object.keys(validationErrors).length === 0) {
-            // Submit logic (e.g. API call)
-            alert('Form updated!\n' + JSON.stringify(form, null, 2));
+        if (Object.keys(validationErrors).length !== 0) return;
+
+        try {
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_AUTH_URL}/getuser/updateuser?userId=${user}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        ...form,
+                    }),
+                }
+            );
+
+            const data = await res.json();
+            if (res.ok) {
+                console.log("Updated user:", data.user);
+                router.push("/profile");
+                router.refresh();
+            } else {
+                alert(data.error || "Update failed");
+            }
+        } catch (error) {
+            console.error("Error updating user:", error);
+            alert("Something went wrong");
+        } finally {
         }
     };
     return (
