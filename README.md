@@ -11,7 +11,6 @@ The project replicates a travel booking platform with modern technologies, respo
 
 🛠️ Tech Stack
 
-📁 Folder Structure
 
 ⚙️ Setup Instructions
 
@@ -60,118 +59,7 @@ Backend	Node.js, Express.js
 Database	MongoDB, Mongoose
 Tools	Axios, Dotenv, Nodemon, Pnpm, PostCSS, Git
 Deployment	Vercel (frontend), Render (backend), MongoDB Atlas (cloud DB)
-📁 Folder Structure
-RudraabhishekTravels/
-├─ backend/
-│  ├─ src/
-│  │  ├─ logs/
-│  │  │  ├─ combined.log
-│  │  │  └─ error.log
-│  │  ├─ middleware/
-│  │  │  └─ auth.js
-│  │  ├─ models/
-│  │  │  └─ User.js
-│  │  ├─ routes/
-│  │  │  ├─ BookingAddRouter.js
-│  │  │  ├─ UserRouter.js
-│  │  │  └─ auth.js
-│  │  ├─ utils/
-│  │  │  ├─ connectdb.js
-│  │  │  ├─ instrument.js
-│  │  │  └─ logger.js
-│  │  ├─ passportConfig.js
-│  │  ├─ protected.js
-│  │  └─ app.js
-│  ├─ .gitignore
-│  ├─ package.json
-│  └─ pnpm-lock.yaml
-│
-├─ flight-service/
-│  ├─ src/
-│  │  ├─ logs/
-│  │  │  ├─ combined.log
-│  │  │  └─ error.log
-│  │  ├─ router/
-│  │  │  └─ FlightRouter.js
-│  │  ├─ utils/
-│  │  │  ├─ FlightApiSetup.js
-│  │  │  ├─ RedisClient.js
-│  │  │  ├─ connectDb.js
-│  │  │  ├─ instrument.js
-│  │  │  └─ logger.js
-│  │  ├─ .env
-│  │  └─ app.js
-│  ├─ .gitignore
-│  ├─ package.json
-│  └─ pnpm-lock.yaml
-│
-├─ hotel-service/
-│  ├─ src/
-│  │  ├─ logs/
-│  │  │  ├─ combined.log
-│  │  │  └─ error.log
-│  │  ├─ routes/
-│  │  │  └─ HotelRouter.js
-│  │  ├─ utils/
-│  │  │  ├─ GenerateSignature.js
-│  │  │  ├─ RedisClient.js
-│  │  │  ├─ instrument.js
-│  │  │  └─ logger.js
-│  │  ├─ .env
-│  │  └─ app.js
-│  ├─ .gitignore
-│  ├─ package.json
-│  └─ pnpm-lock.yaml
-│
-├─ payment-service/
-│  ├─ src/
-│  │  ├─ logs/
-│  │  │  ├─ combined.log
-│  │  │  └─ error.log
-│  │  ├─ router/
-│  │  │  └─ PaymentRouter.js
-│  │  ├─ utils/
-│  │  │  ├─ instrument.js
-│  │  │  └─ logger.js
-│  │  └─ app.js
-│  ├─ .gitignore
-│  ├─ package.json
-│  └─ pnpm-lock.yaml
-│
-├─ frontend/
-│  ├─ public/
-│  ├─ src/
-│  │  ├─ app/
-│  │  │  ├─ FlightCheckOutPage.js
-│  │  │  ├─ FlightListPage.js
-│  │  │  ├─ HotelCheckOutPage.js
-│  │  │  ├─ HotelListPage.js
-│  │  │  └─ ... (other pages)
-│  │  ├─ components/
-│  │  │  ├─ bus/
-│  │  │  ├─ flight/
-│  │  │  ├─ hotel/
-│  │  │  ├─ train/
-│  │  │  └─ common/
-│  │  ├─ hooks/
-│  │  │  ├─ useAuth.js
-│  │  │  └─ useIsMobile.js
-│  │  ├─ lib/
-│  │  │  └─ auth.js
-│  │  ├─ utils/
-│  │  │  ├─ dateUtils.js
-│  │  │  └─ loadRazorpay.js
-│  │  ├─ globals.css
-│  │  ├─ layout.js
-│  │  ├─ not-found.js
-│  │  └─ ... (other files)
-│  ├─ .gitignore
-│  ├─ README.md
-│  ├─ eslint.config.mjs
-│  ├─ jsconfig.json
-│  ├─ next.config.mjs
-│  ├─ package.json
-│  └─ pnpm-lock.yaml
+
 
 ⚙️ Setup Instructions
 Prerequisites
@@ -185,7 +73,7 @@ npm / yarn / pnpm
 1. Clone the repository
 git clone https://github.com/kaushalji451/traveease.git
 
-2. Setup Backend (server)
+1. Setup Backend (server)
 cd backend
 pnpm install
 cp .env.example .env  # or create your own
